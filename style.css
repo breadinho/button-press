@@ -4,16 +4,22 @@ body {
     background: #111;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+h1, h2 {
     text-align: center;
 }
 
-h1 {
-    font-size: 50px;
-    margin-bottom: 10px;
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+    margin-top: 20px;
 }
 
-h2 {
-    margin-top: 10px;
+.main {
+    text-align: center;
 }
 
 #mainButton {
@@ -21,13 +27,13 @@ h2 {
     height: 300px;
     border: none;
     border-radius: 50%;
-    background: #ffffff;
-    color: #000;
+    background: white;
+    color: black;
     font-size: 50px;
     font-weight: bold;
     cursor: pointer;
-    transition: transform 0.1s;
-    margin: 30px 0;
+    transition: transform 0.08s;
+    margin-bottom: 30px;
 }
 
 #mainButton:hover {
@@ -38,9 +44,9 @@ h2 {
     transform: scale(0.92);
 }
 
-.shop {
-    max-width: 700px;
-    margin: 40px auto;
+.shop,
+.gearShop {
+    width: 340px;
 }
 
 .item {
@@ -48,20 +54,16 @@ h2 {
     border: 2px solid #333;
     border-radius: 20px;
     padding: 20px;
-    margin: 20px 0;
+    margin-bottom: 20px;
 }
 
 .item h3 {
     margin-top: 0;
-    font-size: 28px;
-}
-
-.item p {
-    font-size: 18px;
 }
 
 .item button {
-    padding: 12px 24px;
+    width: 100%;
+    padding: 12px;
     font-size: 18px;
     border: none;
     border-radius: 10px;
@@ -72,9 +74,9 @@ h2 {
 }
 
 .item button:hover {
-    transform: scale(1.05);
+    transform: scale(1.03);
 }
 
 .item button:active {
-    transform: scale(0.95);
+    transform: scale(0.96);
 }

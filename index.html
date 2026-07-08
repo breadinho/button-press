@@ -10,87 +10,132 @@
 
 <body>
 
-    <h1>🔘 BUTTON PRESS</h1>
+<h1>🔘 BUTTON PRESS</h1>
 
-    <h2>Clicks: <span id="clicks">0</span></h2>
+<h2>Clicks: <span id="clicks">0</span></h2>
 
-    <button id="mainButton">
-        CLICK
-    </button>
+<div class="container">
 
-    <div class="shop">
+<div class="main">
 
-        <h2>🛒 SHOP</h2>
+<button id="mainButton">
+CLICK
+</button>
 
-        <!-- Clicker -->
-        <div class="item">
-            <h3>⚙️ Clicker</h3>
+<div class="shop">
 
-            <p>+1 click per second</p>
+<h2>🛒 SHOP</h2>
 
-            <p>
-                Price:
-                <span id="clickerPrice">10</span>
-                clicks
-            </p>
+<div class="item">
+<h3>⚙️ Clicker</h3>
 
-            <button id="buyClicker">
-                Buy Clicker
-            </button>
+<p>+1 click per second</p>
 
-            <p>
-                Owned:
-                <span id="clickers">0</span>
-            </p>
-        </div>
+<p>
+Price:
+<span id="clickerPrice">10</span>
+clicks
+</p>
 
-        <!-- Hand -->
-        <div class="item">
-            <h3>✋ Hand</h3>
+<button id="buyClicker">
+Buy Clicker
+</button>
 
-            <p>+2 clicks per click</p>
+<p>
+Owned:
+<span id="clickers">0</span>
+</p>
+</div>
 
-            <p>
-                Price:
-                <span id="handPrice">50</span>
-                clicks
-            </p>
 
-            <button id="buyHand">
-                Buy Hand
-            </button>
+<div class="item">
+<h3>✋ Hand</h3>
 
-            <p>
-                Owned:
-                <span id="hands">0</span>
-            </p>
-        </div>
+<p>+2 clicks per click</p>
 
-        <!-- MOAI -->
-        <div class="item">
-            <h3>🗿 MOAI</h3>
+<p>
+Price:
+<span id="handPrice">50</span>
+clicks
+</p>
 
-            <p>+10 clicks per second</p>
+<button id="buyHand">
+Buy Hand
+</button>
 
-            <p>
-                Price:
-                <span id="moaiPrice">1000</span>
-                clicks
-            </p>
+<p>
+Owned:
+<span id="hands">0</span>
+</p>
+</div>
 
-            <button id="buyMoai">
-                Buy MOAI
-            </button>
 
-            <p>
-                Owned:
-                <span id="moais">0</span>
-            </p>
-        </div>
+<div class="item">
+<h3>🗿 MOAI</h3>
 
-    </div>
+<p>+10 clicks per second</p>
 
-    <script src="script.js"></script>
+<p>
+Price:
+<span id="moaiPrice">1000</span>
+clicks
+</p>
+
+<button id="buyMoai">
+Buy MOAI
+</button>
+
+<p>
+Owned:
+<span id="moais">0</span>
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="gearShop">
+
+<h2>⚙️ GEARS</h2>
+
+<div class="item">
+
+<h3>⚡ x2 Speed</h3>
+
+<p>
+Doubles all auto-click income for 15 seconds.
+</p>
+
+<p>
+Price:
+<span id="speedPrice">2500</span>
+clicks
+</p>
+
+<button id="buySpeed">
+Buy Gear
+</button>
+
+<p>
+Status:
+<span id="speedStatus">
+Ready
+</span>
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Sounds -->
+<audio id="clickSound" src="click.mp3" preload="auto"></audio>
+<audio id="buySound" src="buy.mp3" preload="auto"></audio>
+
+<script src="script.js"></script>
 
 </body>
 
