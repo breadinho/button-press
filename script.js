@@ -59,16 +59,44 @@ const clickGearStatus = document.getElementById("clickGearStatus");
 const incomeStatus = document.getElementById("incomeStatus");
 
 
-// ===== MAIN CLICK =====
+// ===== MAIN BUTTON =====
 
-document.getElementById("mainButton").onclick = () => {
+document.getElementById("mainButton").onclick = (event) => {
 
     let gain = clickPower;
 
-    if (clickGearActive) gain *= 2;
-    if (incomeActive) gain *= 2;
+    if (clickGearActive) {
+        gain *= 2;
+    }
+
+    if (incomeActive) {
+        gain *= 2;
+    }
 
     clicks += gain;
+
+
+    // 💥 EFFECT ONLY WITH x2 CLICK OR x2 INCOME
+
+    if (clickGearActive || incomeActive) {
+
+        let boom = document.createElement("div");
+
+        boom.className = "effect";
+        boom.innerHTML = "💥";
+
+        boom.style.left = event.clientX + "px";
+        boom.style.top = event.clientY + "px";
+
+        document.body.appendChild(boom);
+
+
+        setTimeout(() => {
+            boom.remove();
+        }, 800);
+
+    }
+
 
     update();
 
@@ -87,9 +115,11 @@ document.getElementById("buyClicker").onclick = () => {
         clickerPrice = Math.floor(clickerPrice * 1.25);
 
         update();
+
     }
 
 };
+
 
 
 document.getElementById("buyHand").onclick = () => {
@@ -104,9 +134,11 @@ document.getElementById("buyHand").onclick = () => {
         handPrice = Math.floor(handPrice * 1.25);
 
         update();
+
     }
 
 };
+
 
 
 document.getElementById("buyMoai").onclick = () => {
@@ -119,9 +151,11 @@ document.getElementById("buyMoai").onclick = () => {
         moaiPrice = Math.floor(moaiPrice * 1.15);
 
         update();
+
     }
 
 };
+
 
 
 document.getElementById("buyProphecy").onclick = () => {
@@ -136,9 +170,11 @@ document.getElementById("buyProphecy").onclick = () => {
         prophecyPrice = Math.floor(prophecyPrice * 1.15);
 
         update();
+
     }
 
 };
+
 
 
 document.getElementById("buyTitanic").onclick = () => {
@@ -151,9 +187,11 @@ document.getElementById("buyTitanic").onclick = () => {
         titanicPrice = Math.floor(titanicPrice * 1.125);
 
         update();
+
     }
 
 };
+
 
 
 document.getElementById("buyCookie").onclick = () => {
@@ -168,9 +206,11 @@ document.getElementById("buyCookie").onclick = () => {
         cookiePrice = Math.floor(cookiePrice * 1.075);
 
         update();
+
     }
 
 };
+
 
 
 document.getElementById("buyCinema").onclick = () => {
@@ -180,14 +220,14 @@ document.getElementById("buyCinema").onclick = () => {
         clicks -= cinemaPrice;
         cinemas++;
 
-        clickPower += 1000;
-
         cinemaPrice = Math.floor(cinemaPrice * 1.035);
 
         update();
+
     }
 
 };
+
 
 
 // ===== GEARS =====
@@ -202,9 +242,11 @@ document.getElementById("buySpeed").onclick = () => {
         speedTime = 15;
 
         update();
+
     }
 
 };
+
 
 
 document.getElementById("buyClickGear").onclick = () => {
@@ -217,9 +259,11 @@ document.getElementById("buyClickGear").onclick = () => {
         clickGearTime = 15;
 
         update();
+
     }
 
 };
+
 
 
 document.getElementById("buyIncome").onclick = () => {
@@ -232,6 +276,7 @@ document.getElementById("buyIncome").onclick = () => {
         incomeTime = 15;
 
         update();
+
     }
 
 };
@@ -239,21 +284,37 @@ document.getElementById("buyIncome").onclick = () => {
 
 setInterval(() => {
 
-    let cps = clickers + (moais * 10) + (titanics * 100);
+    let cps = 0;
 
-    if (speedActive) cps *= 2;
-    if (incomeActive) cps *= 2;
+    cps += clickers * 1;
+    cps += moais * 10;
+    cps += titanics * 100;
+    cps += cinemas * 1500;
+
+
+    if (speedActive) {
+        cps *= 2;
+    }
+
+
+    if (incomeActive) {
+        cps *= 2;
+    }
+
 
     clicks += cps / 10;
+
 
     update();
 
 }, 100);
 
 
+
 // ===== GEAR TIMERS =====
 
 setInterval(() => {
+
 
     if (speedActive) {
 
@@ -267,6 +328,7 @@ setInterval(() => {
         }
 
     }
+
 
 
     if (clickGearActive) {
@@ -283,6 +345,7 @@ setInterval(() => {
     }
 
 
+
     if (incomeActive) {
 
         incomeTime--;
@@ -296,22 +359,29 @@ setInterval(() => {
 
     }
 
+
     update();
+
 
 }, 1000);
 
 
-// ===== END GAME =====
+
+// ===== THE END =====
 
 document.getElementById("buyEnd").onclick = () => {
 
-    if (clicks >= 1000000 && ends < 2) {
+
+    if (clicks >= 1000000 && ends < 1) {
+
 
         clicks -= 1000000;
 
         ends++;
 
+
         document.getElementById("winScreen").style.display = "flex";
+
 
         update();
 
@@ -320,16 +390,21 @@ document.getElementById("buyEnd").onclick = () => {
 };
 
 
+
 document.getElementById("continueButton").onclick = () => {
 
+
     document.getElementById("winScreen").style.display = "none";
+
 
 };
 
 
-// ===== UPDATE =====
+
+// ===== UPDATE UI =====
 
 function update() {
+
 
     clicksText.textContent = Math.floor(clicks);
 
@@ -344,6 +419,7 @@ function update() {
     endsText.textContent = ends;
 
 
+
     clickerPriceText.textContent = clickerPrice;
     handPriceText.textContent = handPrice;
     moaiPriceText.textContent = moaiPrice;
@@ -353,26 +429,41 @@ function update() {
     cinemaPriceText.textContent = cinemaPrice;
 
 
+
     speedStatus.textContent =
-        speedActive ? "⚡ Active (" + speedTime + "s)" : "Ready";
+        speedActive
+        ? "⚡ Active (" + speedTime + "s)"
+        : "Ready";
+
 
 
     clickGearStatus.textContent =
-        clickGearActive ? "💥 Active (" + clickGearTime + "s)" : "Ready";
+        clickGearActive
+        ? "💥 Active (" + clickGearTime + "s)"
+        : "Ready";
+
 
 
     incomeStatus.textContent =
-        incomeActive ? "💰 Active (" + incomeTime + "s)" : "Ready";
+        incomeActive
+        ? "💰 Active (" + incomeTime + "s)"
+        : "Ready";
+
+
+
+    if (ends >= 1) {
+
+        document.getElementById("buyEnd").innerHTML = "MAXED";
+
+    }
+
 
 }
 
 
+
 // ===== START =====
 
-const winScreen = document.getElementById("winScreen");
-
-winScreen.style.display = "none";
-
-update();
+document.getElementById("winScreen").style.display = "none";
 
 update();
