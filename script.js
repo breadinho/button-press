@@ -1,20 +1,18 @@
 // ===== VARIABLES =====
 
-let clicks = 0;
+let clicks = 0, clickPower = 1;
 
-let clickPower = 1;
-
-let clickers = 0;
-let hands = 0;
-let moais = 0;
+let clickers = 0, hands = 0, moais = 0, prophecies = 0, titanics = 0;
 
 let clickerPrice = 10;
 let handPrice = 50;
 let moaiPrice = 1000;
+let prophecyPrice = 10000;
+let titanicPrice = 25000;
 
-let speedPrice = 2500;
-let clickGearPrice = 2500;
-let incomePrice = 5000;
+let speedPrice = 3500;
+let clickGearPrice = 5000;
+let incomePrice = 10000;
 
 let speedActive = false;
 let clickGearActive = false;
@@ -31,10 +29,14 @@ const clicksText = document.getElementById("clicks");
 const clickerText = document.getElementById("clickers");
 const handText = document.getElementById("hands");
 const moaiText = document.getElementById("moais");
+const prophecyText = document.getElementById("prophecies");
+const titanicText = document.getElementById("titanics");
 
 const clickerPriceText = document.getElementById("clickerPrice");
 const handPriceText = document.getElementById("handPrice");
 const moaiPriceText = document.getElementById("moaiPrice");
+const prophecyPriceText = document.getElementById("prophecyPrice");
+const titanicPriceText = document.getElementById("titanicPrice");
 
 const speedPriceText = document.getElementById("speedPrice");
 const clickGearPriceText = document.getElementById("clickGearPrice");
@@ -44,15 +46,14 @@ const speedStatus = document.getElementById("speedStatus");
 const clickGearStatus = document.getElementById("clickGearStatus");
 const incomeStatus = document.getElementById("incomeStatus");
 
-// ===== MAIN BUTTON =====
+// ===== CLICK BUTTON =====
 
-document.getElementById("mainButton").onclick = function () {
+document.getElementById("mainButton").onclick = () => {
 
     let gain = clickPower;
 
-    if (clickGearActive || incomeActive) {
-        gain *= 2;
-    }
+    if (clickGearActive) gain *= 2;
+    if (incomeActive) gain *= 2;
 
     clicks += gain;
 
@@ -62,93 +63,99 @@ document.getElementById("mainButton").onclick = function () {
 
 // ===== CLICKER =====
 
-document.getElementById("buyClicker").onclick = function () {
+document.getElementById("buyClicker").onclick = () => {
 
-    if (clicks >= clickerPrice) {
+    if (clicks < clickerPrice) return;
 
-        clicks -= clickerPrice;
+    clicks -= clickerPrice;
+    clickers++;
+    clickerPrice = Math.floor(clickerPrice * 1.25);
 
-        clickers++;
-
-        clickerPrice = Math.floor(clickerPrice * 1.25);
-
-        update();
-
-    }
+    update();
 
 };
 
 // ===== HAND =====
 
-document.getElementById("buyHand").onclick = function () {
+document.getElementById("buyHand").onclick = () => {
 
-    if (clicks >= handPrice) {
+    if (clicks < handPrice) return;
 
-        clicks -= handPrice;
+    clicks -= handPrice;
+    hands++;
+    clickPower += 2;
+    handPrice = Math.floor(handPrice * 1.25);
 
-        hands++;
-
-        clickPower += 2;
-
-        handPrice = Math.floor(handPrice * 1.25);
-
-        update();
-
-    }
+    update();
 
 };
 
 // ===== MOAI =====
 
-document.getElementById("buyMoai").onclick = function () {
+document.getElementById("buyMoai").onclick = () => {
 
-    if (clicks >= moaiPrice) {
+    if (clicks < moaiPrice) return;
 
-        clicks -= moaiPrice;
+    clicks -= moaiPrice;
+    moais++;
+    moaiPrice = Math.floor(moaiPrice * 1.15);
 
-        moais++;
-
-        moaiPrice = Math.floor(moaiPrice * 1.15);
-
-        update();
-
-    }
+    update();
 
 };
 
-// ===== x2 SPEED =====
+// ===== PROPHECY =====
 
-document.getElementById("buySpeed").onclick = function () {
+document.getElementById("buyProphecy").onclick = () => {
 
-    if (clicks >= speedPrice && !speedActive) {
+    if (clicks < prophecyPrice) return;
+
+    clicks -= prophecyPrice;
+    prophecies++;
+    clickPower += 50;
+    prophecyPrice = Math.floor(prophecyPrice * 1.15);
+
+    update();
+
+};
+
+// ===== TITANIC =====
+
+document.getElementById("buyTitanic").onclick = () => {
+
+    if (clicks < titanicPrice) return;
+
+    clicks -= titanicPrice;
+    titanics++;
+    titanicPrice = Math.floor(titanicPrice * 1.125);
+
+    update();
+
+};
+
+// ===== GEARS =====
+
+document.getElementById("buySpeed").onclick = () => {
+
+    if (clicks >= speedPrice) {
 
         clicks -= speedPrice;
-
         speedActive = true;
-
         speedTime = 15;
 
-        speedPrice = Math.floor(speedPrice * 1.20);
-
         update();
 
     }
 
 };
 
-// ===== x2 CLICK =====
+document.getElementById("buyClickGear").onclick = () => {
 
-document.getElementById("buyClickGear").onclick = function () {
-
-    if (clicks >= clickGearPrice && !clickGearActive) {
+    if (clicks >= clickGearPrice) {
 
         clicks -= clickGearPrice;
-
         clickGearActive = true;
-
         clickGearTime = 15;
-
-        clickGearPrice = Math.floor(clickGearPrice * 1.20);
 
         update();
 
@@ -156,19 +163,13 @@ document.getElementById("buyClickGear").onclick = function () {
 
 };
 
-// ===== x2 INCOME =====
+document.getElementById("buyIncome").onclick = () => {
 
-document.getElementById("buyIncome").onclick = function () {
-
-    if (clicks >= incomePrice && !incomeActive) {
+    if (clicks >= incomePrice) {
 
         clicks -= incomePrice;
-
         incomeActive = true;
-
         incomeTime = 15;
-
-        incomePrice = Math.floor(incomePrice * 1.20);
 
         update();
 
@@ -177,61 +178,36 @@ document.getElementById("buyIncome").onclick = function () {
 };
 // ===== AUTO CLICK =====
 
-setInterval(function () {
+setInterval(() => {
 
-    let cps = clickers + (moais * 10);
+    let cps = clickers + (moais * 10) + (titanics * 100);
 
-    if (speedActive || incomeActive) {
-        cps *= 2;
-    }
+    if (speedActive) cps *= 2;
+    if (incomeActive) cps *= 2;
 
-    clicks += cps;
+    clicks += cps / 10;
 
     update();
 
-}, 1000);
+}, 100);
 
 // ===== TIMERS =====
 
-setInterval(function () {
+setInterval(() => {
 
-    if (speedActive) {
-
-        speedTime--;
-
-        if (speedTime <= 0) {
-
-            speedActive = false;
-            speedTime = 0;
-
-        }
-
+    if (speedActive && --speedTime <= 0) {
+        speedActive = false;
+        speedTime = 0;
     }
 
-    if (clickGearActive) {
-
-        clickGearTime--;
-
-        if (clickGearTime <= 0) {
-
-            clickGearActive = false;
-            clickGearTime = 0;
-
-        }
-
+    if (clickGearActive && --clickGearTime <= 0) {
+        clickGearActive = false;
+        clickGearTime = 0;
     }
 
-    if (incomeActive) {
-
-        incomeTime--;
-
-        if (incomeTime <= 0) {
-
-            incomeActive = false;
-            incomeTime = 0;
-
-        }
-
+    if (incomeActive && --incomeTime <= 0) {
+        incomeActive = false;
+        incomeTime = 0;
     }
 
     update();
@@ -247,24 +223,27 @@ function update() {
     clickerText.textContent = clickers;
     handText.textContent = hands;
     moaiText.textContent = moais;
+    prophecyText.textContent = prophecies;
+    titanicText.textContent = titanics;
 
     clickerPriceText.textContent = clickerPrice;
     handPriceText.textContent = handPrice;
     moaiPriceText.textContent = moaiPrice;
+    prophecyPriceText.textContent = prophecyPrice;
+    titanicPriceText.textContent = titanicPrice;
 
     speedPriceText.textContent = speedPrice;
     clickGearPriceText.textContent = clickGearPrice;
     incomePriceText.textContent = incomePrice;
 
     speedStatus.textContent =
-        speedActive ? "⚡ Active (" + speedTime + "s)" : "Ready";
+        speedActive ? `⚡ Active (${speedTime}s)` : "Ready";
 
     clickGearStatus.textContent =
-        clickGearActive ? "💥 Active (" + clickGearTime + "s)" : "Ready";
+        clickGearActive ? `💥 Active (${clickGearTime}s)` : "Ready";
 
     incomeStatus.textContent =
-        incomeActive ? "💰 Active (" + incomeTime + "s)" : "Ready";
-
+        incomeActive ? `💰 Active (${incomeTime}s)` : "Ready";
 }
 
 // ===== START =====

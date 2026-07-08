@@ -1,147 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BUTTON PRESS</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-    <h1>🔘 BUTTON PRESS</h1>
+<h1>🔘 BUTTON PRESS</h1>
 
-    <h2>Clicks: <span id="clicks">0</span></h2>
+<h2>Clicks: <span id="clicks">0</span></h2>
 
-    <div class="container">
+<div class="container">
 
-        <div class="main">
+<div class="main">
 
-            <button id="mainButton">
-                CLICK
-            </button>
+<button id="mainButton">
+CLICK
+</button>
 
-            <div class="shop">
+<div class="shop">
 
-                <h2>🛒 SHOP</h2>
+<h2>🛒 SHOP</h2>
 
-                <div class="item">
-                    <h3>⚙️ Clicker</h3>
+<div class="item">
+<h3>⚙️ Clicker</h3>
+<p>+1 click per second</p>
+<p>Price: <span id="clickerPrice">10</span> clicks</p>
+<button id="buyClicker">Buy Clicker</button>
+<p>Owned: <span id="clickers">0</span></p>
+</div>
 
-                    <p>+1 click per second</p>
+<div class="item">
+<h3>✋ Hand</h3>
+<p>+2 clicks per click</p>
+<p>Price: <span id="handPrice">50</span> clicks</p>
+<button id="buyHand">Buy Hand</button>
+<p>Owned: <span id="hands">0</span></p>
+</div>
 
-                    <p>Price:
-                        <span id="clickerPrice">10</span> clicks
-                    </p>
+<div class="item">
+<h3>🗿 MOAI</h3>
+<p>+10 clicks per second</p>
+<p>Price: <span id="moaiPrice">1000</span> clicks</p>
+<button id="buyMoai">Buy MOAI</button>
+<p>Owned: <span id="moais">0</span></p>
+</div>
 
-                    <button id="buyClicker">Buy Clicker</button>
+<div class="item">
+<h3>🗿 The prophecy is true, ใช้</h3>
+<p>+50 clicks per click</p>
+<p>Price: <span id="prophecyPrice">10000</span> clicks</p>
+<button id="buyProphecy">Buy</button>
+<p>Owned: <span id="prophecies">0</span></p>
+</div>
 
-                    <p>Owned:
-                        <span id="clickers">0</span>
-                    </p>
-                </div>
+<div class="item">
+<h3>🚢 Titanic</h3>
+<p>+100 clicks per second</p>
+<p>Price: <span id="titanicPrice">25000</span> clicks</p>
+<button id="buyTitanic">Buy</button>
+<p>Owned: <span id="titanics">0</span></p>
+</div>
 
-                <div class="item">
-                    <h3>✋ Hand</h3>
+</div>
 
-                    <p>+2 clicks per click</p>
+</div>
 
-                    <p>Price:
-                        <span id="handPrice">50</span> clicks
-                    </p>
+<div class="gearShop">
 
-                    <button id="buyHand">Buy Hand</button>
+<h2>⚙️ GEARS</h2>
 
-                    <p>Owned:
-                        <span id="hands">0</span>
-                    </p>
-                </div>
+<div class="item">
+<h3>⚡ x2 Speed</h3>
+<p>Auto income ×2 for 15 seconds.</p>
+<p>Price: <span id="speedPrice">3500</span> clicks</p>
+<button id="buySpeed">Buy Gear</button>
+<p>Status: <span id="speedStatus">Ready</span></p>
+</div>
 
-                <div class="item">
-                    <h3>🗿 MOAI</h3>
+<div class="item">
+<h3>💥 x2 Click</h3>
+<p>Manual clicks ×2 for 15 seconds.</p>
+<p>Price: <span id="clickGearPrice">5000</span> clicks</p>
+<button id="buyClickGear">Buy Gear</button>
+<p>Status: <span id="clickGearStatus">Ready</span></p>
+</div>
 
-                    <p>+10 clicks per second</p>
+<div class="item">
+<h3>💰 x2 Income</h3>
+<p>Everything ×2 for 15 seconds.</p>
+<p>Price: <span id="incomePrice">10000</span> clicks</p>
+<button id="buyIncome">Buy Gear</button>
+<p>Status: <span id="incomeStatus">Ready</span></p>
+</div>
 
-                    <p>Price:
-                        <span id="moaiPrice">1000</span> clicks
-                    </p>
+</div>
 
-                    <button id="buyMoai">Buy MOAI</button>
+</div>
 
-                    <p>Owned:
-                        <span id="moais">0</span>
-                    </p>
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="gearShop">
-
-            <h2>⚙️ GEARS</h2>
-
-            <div class="item">
-                <h3>⚡ x2 Speed</h3>
-
-                <p>Doubles auto-click income for 15 seconds.</p>
-
-                <p>Price:
-                    <span id="speedPrice">2500</span> clicks
-                </p>
-
-                <button id="buySpeed">
-                    Buy Gear
-                </button>
-
-                <p>Status:
-                    <span id="speedStatus">Ready</span>
-                </p>
-            </div>
-
-            <div class="item">
-                <h3>💥 x2 Click</h3>
-
-                <p>Doubles manual click power for 15 seconds.</p>
-
-                <p>Price:
-                    <span id="clickGearPrice">2500</span> clicks
-                </p>
-
-                <button id="buyClickGear">
-                    Buy Gear
-                </button>
-
-                <p>Status:
-                    <span id="clickGearStatus">Ready</span>
-                </p>
-            </div>
-
-            <div class="item">
-                <h3>💰 x2 Income</h3>
-
-                <p>Doubles ALL income for 15 seconds.</p>
-
-                <p>Price:
-                    <span id="incomePrice">5000</span> clicks
-                </p>
-
-                <button id="buyIncome">
-                    Buy Gear
-                </button>
-
-                <p>Status:
-                    <span id="incomeStatus">Ready</span>
-                </p>
-            </div>
-
-        </div>
-
-    </div>
-
-    <script src="script.js"></script>
+<script src="script.js"></script>
 
 </body>
-
 </html>
