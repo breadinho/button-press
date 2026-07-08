@@ -1,37 +1,28 @@
-let moais = 0;
-let moaiPrice = 1000;
-
 let clicks = 0;
+
 let clickPower = 1;
 
 let clickers = 0;
 let hands = 0;
-
+let moais = 0;
 
 let clickerPrice = 10;
 let handPrice = 50;
-
+let moaiPrice = 1000;
 
 const clicksText = document.getElementById("clicks");
 
 const button = document.getElementById("mainButton");
 
-
 const clickerText = document.getElementById("clickers");
 const handText = document.getElementById("hands");
+const moaiText = document.getElementById("moais");
 
+const clickerPriceText = document.getElementById("clickerPrice");
+const handPriceText = document.getElementById("handPrice");
+const moaiPriceText = document.getElementById("moaiPrice");
 
-const clickerPriceText =
-document.getElementById("clickerPrice");
-
-const handPriceText =
-document.getElementById("handPrice");
-
-
-
-// Main button
-
-button.onclick = function(){
+button.onclick = function () {
 
     clicks += clickPower;
 
@@ -39,13 +30,9 @@ button.onclick = function(){
 
 };
 
+document.getElementById("buyClicker").onclick = function () {
 
-
-// Buy clicker
-
-document.getElementById("buyClicker").onclick = function(){
-
-    if(clicks >= clickerPrice){
+    if (clicks >= clickerPrice) {
 
         clicks -= clickerPrice;
 
@@ -59,13 +46,9 @@ document.getElementById("buyClicker").onclick = function(){
 
 };
 
+document.getElementById("buyHand").onclick = function () {
 
-
-// Buy hand
-
-document.getElementById("buyHand").onclick = function(){
-
-    if(clicks >= handPrice){
+    if (clicks >= handPrice) {
 
         clicks -= handPrice;
 
@@ -81,9 +64,9 @@ document.getElementById("buyHand").onclick = function(){
 
 };
 
-document.getElementById("buyMoai").onclick = function(){
+document.getElementById("buyMoai").onclick = function () {
 
-    if(clicks >= moaiPrice){
+    if (clicks >= moaiPrice) {
 
         clicks -= moaiPrice;
 
@@ -97,44 +80,27 @@ document.getElementById("buyMoai").onclick = function(){
 
 };
 
-
-// Auto clickers
-
-setInterval(function(){
+setInterval(function () {
 
     clicks += clickers;
+    clicks += moais * 10;
 
     update();
 
-},1000);
+}, 1000);
 
-
-
-
-// Update screen
-
-function update(){
+function update() {
 
     clicksText.textContent = clicks;
 
     clickerText.textContent = clickers;
-
     handText.textContent = hands;
+    moaiText.textContent = moais;
 
     clickerPriceText.textContent = clickerPrice;
-
     handPriceText.textContent = handPrice;
-
-    document.getElementById("moais").textContent = moais;
-
-    document.getElementById("moaiPrice").textContent = moaiPrice;
+    moaiPriceText.textContent = moaiPrice;
 
 }
 
-setInterval(function(){
-
-    clicks += clickers + (moais * 10);
-
-    update();
-
-},1000);
+update();
