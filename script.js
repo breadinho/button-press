@@ -1,39 +1,32 @@
-// =======================
-// BUTTON PRESS v2.1
-// Part 1
-// =======================
+// ===== VARIABLES =====
 
-// Currency
 let clicks = 0;
 
-// Manual click power
 let clickPower = 1;
 
-// Shop
 let clickers = 0;
 let hands = 0;
 let moais = 0;
 
-// Prices
 let clickerPrice = 10;
 let handPrice = 50;
 let moaiPrice = 1000;
 
-// Gear
 let speedPrice = 2500;
-let speedActive = false;
-let speedTime = 0;
+let clickGearPrice = 2500;
+let incomePrice = 5000;
 
-// =======================
-// Elements
-// =======================
+let speedActive = false;
+let clickGearActive = false;
+let incomeActive = false;
+
+let speedTime = 0;
+let clickGearTime = 0;
+let incomeTime = 0;
+
+// ===== ELEMENTS =====
 
 const clicksText = document.getElementById("clicks");
-
-const mainButton = document.getElementById("mainButton");
-
-const clickSound = document.getElementById("clickSound");
-const buySound = document.getElementById("buySound");
 
 const clickerText = document.getElementById("clickers");
 const handText = document.getElementById("hands");
@@ -44,26 +37,30 @@ const handPriceText = document.getElementById("handPrice");
 const moaiPriceText = document.getElementById("moaiPrice");
 
 const speedPriceText = document.getElementById("speedPrice");
+const clickGearPriceText = document.getElementById("clickGearPrice");
+const incomePriceText = document.getElementById("incomePrice");
+
 const speedStatus = document.getElementById("speedStatus");
+const clickGearStatus = document.getElementById("clickGearStatus");
+const incomeStatus = document.getElementById("incomeStatus");
 
-// =======================
-// Main Button
-// =======================
+// ===== MAIN BUTTON =====
 
-mainButton.onclick = function () {
+document.getElementById("mainButton").onclick = function () {
 
-    clicks += clickPower;
+    let gain = clickPower;
 
-    clickSound.currentTime = 0;
-    clickSound.play();
+    if (clickGearActive || incomeActive) {
+        gain *= 2;
+    }
+
+    clicks += gain;
 
     update();
 
 };
 
-// =======================
-// Clicker
-// =======================
+// ===== CLICKER =====
 
 document.getElementById("buyClicker").onclick = function () {
 
@@ -75,18 +72,13 @@ document.getElementById("buyClicker").onclick = function () {
 
         clickerPrice = Math.floor(clickerPrice * 1.25);
 
-        buySound.currentTime = 0;
-        buySound.play();
-
         update();
 
     }
 
 };
 
-// =======================
-// Hand
-// =======================
+// ===== HAND =====
 
 document.getElementById("buyHand").onclick = function () {
 
@@ -100,18 +92,13 @@ document.getElementById("buyHand").onclick = function () {
 
         handPrice = Math.floor(handPrice * 1.25);
 
-        buySound.currentTime = 0;
-        buySound.play();
-
         update();
 
     }
 
 };
 
-// =======================
-// MOAI
-// =======================
+// ===== MOAI =====
 
 document.getElementById("buyMoai").onclick = function () {
 
@@ -123,18 +110,13 @@ document.getElementById("buyMoai").onclick = function () {
 
         moaiPrice = Math.floor(moaiPrice * 1.15);
 
-        buySound.currentTime = 0;
-        buySound.play();
-
         update();
 
     }
 
 };
 
-// =======================
-// x2 SPEED GEAR
-// =======================
+// ===== x2 SPEED =====
 
 document.getElementById("buySpeed").onclick = function () {
 
@@ -148,8 +130,25 @@ document.getElementById("buySpeed").onclick = function () {
 
         speedPrice = Math.floor(speedPrice * 1.20);
 
-        buySound.currentTime = 0;
-        buySound.play();
+        update();
+
+    }
+
+};
+
+// ===== x2 CLICK =====
+
+document.getElementById("buyClickGear").onclick = function () {
+
+    if (clicks >= clickGearPrice && !clickGearActive) {
+
+        clicks -= clickGearPrice;
+
+        clickGearActive = true;
+
+        clickGearTime = 15;
+
+        clickGearPrice = Math.floor(clickGearPrice * 1.20);
 
         update();
 
@@ -157,15 +156,32 @@ document.getElementById("buySpeed").onclick = function () {
 
 };
 
-// =======================
-// Auto Click Engine
-// =======================
+// ===== x2 INCOME =====
+
+document.getElementById("buyIncome").onclick = function () {
+
+    if (clicks >= incomePrice && !incomeActive) {
+
+        clicks -= incomePrice;
+
+        incomeActive = true;
+
+        incomeTime = 15;
+
+        incomePrice = Math.floor(incomePrice * 1.20);
+
+        update();
+
+    }
+
+};
+// ===== AUTO CLICK =====
 
 setInterval(function () {
 
     let cps = clickers + (moais * 10);
 
-    if (speedActive) {
+    if (speedActive || incomeActive) {
         cps *= 2;
     }
 
@@ -175,9 +191,7 @@ setInterval(function () {
 
 }, 1000);
 
-// =======================
-// Speed Gear Timer
-// =======================
+// ===== TIMERS =====
 
 setInterval(function () {
 
@@ -192,15 +206,39 @@ setInterval(function () {
 
         }
 
-        update();
+    }
+
+    if (clickGearActive) {
+
+        clickGearTime--;
+
+        if (clickGearTime <= 0) {
+
+            clickGearActive = false;
+            clickGearTime = 0;
+
+        }
 
     }
 
+    if (incomeActive) {
+
+        incomeTime--;
+
+        if (incomeTime <= 0) {
+
+            incomeActive = false;
+            incomeTime = 0;
+
+        }
+
+    }
+
+    update();
+
 }, 1000);
 
-// =======================
-// Update UI
-// =======================
+// ===== UPDATE =====
 
 function update() {
 
@@ -215,22 +253,20 @@ function update() {
     moaiPriceText.textContent = moaiPrice;
 
     speedPriceText.textContent = speedPrice;
+    clickGearPriceText.textContent = clickGearPrice;
+    incomePriceText.textContent = incomePrice;
 
-    if (speedActive) {
+    speedStatus.textContent =
+        speedActive ? "⚡ Active (" + speedTime + "s)" : "Ready";
 
-        speedStatus.textContent =
-            "⚡ Active (" + speedTime + "s)";
+    clickGearStatus.textContent =
+        clickGearActive ? "💥 Active (" + clickGearTime + "s)" : "Ready";
 
-    } else {
-
-        speedStatus.textContent = "Ready";
-
-    }
+    incomeStatus.textContent =
+        incomeActive ? "💰 Active (" + incomeTime + "s)" : "Ready";
 
 }
 
-// =======================
-// First Update
-// =======================
+// ===== START =====
 
 update();

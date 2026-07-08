@@ -10,132 +10,137 @@
 
 <body>
 
-<h1>🔘 BUTTON PRESS</h1>
+    <h1>🔘 BUTTON PRESS</h1>
 
-<h2>Clicks: <span id="clicks">0</span></h2>
+    <h2>Clicks: <span id="clicks">0</span></h2>
 
-<div class="container">
+    <div class="container">
 
-<div class="main">
+        <div class="main">
 
-<button id="mainButton">
-CLICK
-</button>
+            <button id="mainButton">
+                CLICK
+            </button>
 
-<div class="shop">
+            <div class="shop">
 
-<h2>🛒 SHOP</h2>
+                <h2>🛒 SHOP</h2>
 
-<div class="item">
-<h3>⚙️ Clicker</h3>
+                <div class="item">
+                    <h3>⚙️ Clicker</h3>
 
-<p>+1 click per second</p>
+                    <p>+1 click per second</p>
 
-<p>
-Price:
-<span id="clickerPrice">10</span>
-clicks
-</p>
+                    <p>Price:
+                        <span id="clickerPrice">10</span> clicks
+                    </p>
 
-<button id="buyClicker">
-Buy Clicker
-</button>
+                    <button id="buyClicker">Buy Clicker</button>
 
-<p>
-Owned:
-<span id="clickers">0</span>
-</p>
-</div>
+                    <p>Owned:
+                        <span id="clickers">0</span>
+                    </p>
+                </div>
 
+                <div class="item">
+                    <h3>✋ Hand</h3>
 
-<div class="item">
-<h3>✋ Hand</h3>
+                    <p>+2 clicks per click</p>
 
-<p>+2 clicks per click</p>
+                    <p>Price:
+                        <span id="handPrice">50</span> clicks
+                    </p>
 
-<p>
-Price:
-<span id="handPrice">50</span>
-clicks
-</p>
+                    <button id="buyHand">Buy Hand</button>
 
-<button id="buyHand">
-Buy Hand
-</button>
+                    <p>Owned:
+                        <span id="hands">0</span>
+                    </p>
+                </div>
 
-<p>
-Owned:
-<span id="hands">0</span>
-</p>
-</div>
+                <div class="item">
+                    <h3>🗿 MOAI</h3>
 
+                    <p>+10 clicks per second</p>
 
-<div class="item">
-<h3>🗿 MOAI</h3>
+                    <p>Price:
+                        <span id="moaiPrice">1000</span> clicks
+                    </p>
 
-<p>+10 clicks per second</p>
+                    <button id="buyMoai">Buy MOAI</button>
 
-<p>
-Price:
-<span id="moaiPrice">1000</span>
-clicks
-</p>
+                    <p>Owned:
+                        <span id="moais">0</span>
+                    </p>
+                </div>
 
-<button id="buyMoai">
-Buy MOAI
-</button>
+            </div>
 
-<p>
-Owned:
-<span id="moais">0</span>
-</p>
+        </div>
 
-</div>
+        <div class="gearShop">
 
-</div>
+            <h2>⚙️ GEARS</h2>
 
-</div>
+            <div class="item">
+                <h3>⚡ x2 Speed</h3>
 
-<div class="gearShop">
+                <p>Doubles auto-click income for 15 seconds.</p>
 
-<h2>⚙️ GEARS</h2>
+                <p>Price:
+                    <span id="speedPrice">2500</span> clicks
+                </p>
 
-<div class="item">
+                <button id="buySpeed">
+                    Buy Gear
+                </button>
 
-<h3>⚡ x2 Speed</h3>
+                <p>Status:
+                    <span id="speedStatus">Ready</span>
+                </p>
+            </div>
 
-<p>
-Doubles all auto-click income for 15 seconds.
-</p>
+            <div class="item">
+                <h3>💥 x2 Click</h3>
 
-<p>
-Price:
-<span id="speedPrice">2500</span>
-clicks
-</p>
+                <p>Doubles manual click power for 15 seconds.</p>
 
-<button id="buySpeed">
-Buy Gear
-</button>
+                <p>Price:
+                    <span id="clickGearPrice">2500</span> clicks
+                </p>
 
-<p>
-Status:
-<span id="speedStatus">
-Ready
-</span>
-</p>
+                <button id="buyClickGear">
+                    Buy Gear
+                </button>
 
-</div>
+                <p>Status:
+                    <span id="clickGearStatus">Ready</span>
+                </p>
+            </div>
 
-</div>
+            <div class="item">
+                <h3>💰 x2 Income</h3>
 
-</div>
+                <p>Doubles ALL income for 15 seconds.</p>
 
-<!-- Sounds -->
-<audio id="clickSound" src="click.mp3" preload="auto"></audio>
-<audio id="buySound" src="buy.mp3" preload="auto"></audio>
+                <p>Price:
+                    <span id="incomePrice">5000</span> clicks
+                </p>
 
-<script src="script.js"></script>
+                <button id="buyIncome">
+                    Buy Gear
+                </button>
+
+                <p>Status:
+                    <span id="incomeStatus">Ready</span>
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
 
 </body>
 
