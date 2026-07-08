@@ -1,82 +1,174 @@
 body {
-    margin: 0;
-    padding: 20px;
+    font-family: Arial, sans-serif;
+    text-align: center;
     background: #111;
     color: white;
-    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 20px;
 }
 
-h1, h2 {
-    text-align: center;
+
+h1 {
+    font-size: 45px;
 }
+
 
 .container {
     display: flex;
     justify-content: center;
+    gap: 30px;
     align-items: flex-start;
-    gap: 40px;
-    margin-top: 20px;
 }
+
 
 .main {
-    text-align: center;
+    width: 600px;
 }
 
-#mainButton {
-    width: 300px;
-    height: 300px;
-    border: none;
-    border-radius: 50%;
-    background: white;
-    color: black;
-    font-size: 50px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: transform 0.08s;
-    margin-bottom: 30px;
-}
-
-#mainButton:hover {
-    transform: scale(1.03);
-}
-
-#mainButton:active {
-    transform: scale(0.92);
-}
 
 .shop,
 .gearShop {
-    width: 340px;
+    background: #1d1d1d;
+    padding: 20px;
+    border-radius: 15px;
 }
+
+
+.gearShop {
+    width: 300px;
+}
+
+
+.shop {
+    margin-top: 30px;
+}
+
+
+#mainButton {
+
+    width: 300px;
+    height: 300px;
+
+    border-radius: 50%;
+
+    font-size: 40px;
+
+    cursor: pointer;
+
+    border: none;
+
+}
+
+
+#mainButton:active {
+
+    transform: scale(0.95);
+
+}
+
 
 .item {
-    background: #222;
-    border: 2px solid #333;
-    border-radius: 20px;
-    padding: 20px;
-    margin-bottom: 20px;
+
+    background: #292929;
+
+    margin: 15px 0;
+
+    padding: 15px;
+
+    border-radius: 12px;
+
 }
 
-.item h3 {
-    margin-top: 0;
-}
 
-.item button {
-    width: 100%;
-    padding: 12px;
-    font-size: 18px;
-    border: none;
-    border-radius: 10px;
+button {
+
+    padding: 10px 20px;
+
+    font-size: 16px;
+
     cursor: pointer;
-    background: white;
-    color: black;
-    transition: transform 0.1s;
+
+    border-radius: 8px;
+
+    border: none;
+
 }
 
-.item button:hover {
-    transform: scale(1.03);
+
+button:hover {
+
+    transform: scale(1.05);
+
 }
 
-.item button:active {
-    transform: scale(0.96);
+
+.winScreen {
+
+    display: none;
+
+    position: fixed;
+
+    top: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    background: rgba(0,0,0,0.8);
+
+    justify-content: center;
+
+    align-items: center;
+
+    z-index: 10;
+
+}
+
+
+.winBox {
+
+    background: #222;
+
+    padding: 40px;
+
+    border-radius: 20px;
+
+    width: 400px;
+
+}
+
+
+.winBox h1 {
+
+    font-size: 70px;
+
+}
+
+
+@media (max-width: 900px) {
+
+    .container {
+
+        flex-direction: column;
+
+        align-items: center;
+
+    }
+
+
+    .main {
+
+        width: 90%;
+
+    }
+
+
+    .gearShop {
+
+        width: 90%;
+
+    }
+
 }

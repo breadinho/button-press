@@ -369,6 +369,10 @@ function update() {
 
 // ===== START =====
 
-document.getElementById("winScreen").style.display = "none";
+const winScreen = document.getElementById("winScreen");
+
+winScreen.style.display = "none";
+
+update();
 
 update();
