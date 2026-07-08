@@ -1,5 +1,7 @@
-let clicks = 0;
+let moais = 0;
+let moaiPrice = 1000;
 
+let clicks = 0;
 let clickPower = 1;
 
 let clickers = 0;
@@ -8,9 +10,6 @@ let hands = 0;
 
 let clickerPrice = 10;
 let handPrice = 50;
-
-let moais = 0;
-let moaiPrice = 1000;
 
 
 const clicksText = document.getElementById("clicks");
@@ -126,4 +125,16 @@ function update(){
 
     handPriceText.textContent = handPrice;
 
+    document.getElementById("moais").textContent = moais;
+
+    document.getElementById("moaiPrice").textContent = moaiPrice;
+
 }
+
+setInterval(function(){
+
+    clicks += clickers + (moais * 10);
+
+    update();
+
+},1000);
