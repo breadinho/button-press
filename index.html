@@ -1,72 +1,97 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BUTTON PRESS</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<h1>🔘 BUTTON PRESS</h1>
+    <h1>🔘 BUTTON PRESS</h1>
 
-<h2>Clicks: <span id="clicks">0</span></h2>
+    <h2>Clicks: <span id="clicks">0</span></h2>
 
-<button id="mainButton">
-    CLICK
-</button>
-
-
-<div class="shop">
-
-    <h2>🛒 Shop</h2>
-
-    <div class="item">
-        <h3>⚙️ Clicker</h3>
-        <p>+1 click per second</p>
-        <p>Price: <span id="clickerPrice">10</span> clicks</p>
-        <button id="buyClicker">
-            Buy Clicker
-        </button>
-        <p>Owned: <span id="clickers">0</span></p>
-    </div>
-
-
-    <div class="item">
-        <h3>✋ Hand</h3>
-        <p>+2 clicks per press</p>
-        <p>Price: <span id="handPrice">50</span> clicks</p>
-        <button id="buyHand">
-            Buy Hand
-        </button>
-        <p>Owned: <span id="hands">0</span></p>
-    </div>
-
-</div>
-
-
-<script src="script.js"></script>
-
-</body>
-</html>
-<div class="item">
-
-    <h3>🗿 MOAI</h3>
-
-    <p>+10 clicks per second</p>
-
-    <p>
-        Price:
-        <span id="moaiPrice">1000</span>
-        clicks
-    </p>
-
-    <button id="buyMoai">
-        Buy MOAI
+    <button id="mainButton">
+        CLICK
     </button>
 
-    <p>
-        Owned:
-        <span id="moais">0</span>
-    </p>
+    <div class="shop">
 
-</div>
+        <h2>🛒 SHOP</h2>
+
+        <!-- Clicker -->
+        <div class="item">
+            <h3>⚙️ Clicker</h3>
+
+            <p>+1 click per second</p>
+
+            <p>
+                Price:
+                <span id="clickerPrice">10</span>
+                clicks
+            </p>
+
+            <button id="buyClicker">
+                Buy Clicker
+            </button>
+
+            <p>
+                Owned:
+                <span id="clickers">0</span>
+            </p>
+        </div>
+
+        <!-- Hand -->
+        <div class="item">
+            <h3>✋ Hand</h3>
+
+            <p>+2 clicks per click</p>
+
+            <p>
+                Price:
+                <span id="handPrice">50</span>
+                clicks
+            </p>
+
+            <button id="buyHand">
+                Buy Hand
+            </button>
+
+            <p>
+                Owned:
+                <span id="hands">0</span>
+            </p>
+        </div>
+
+        <!-- MOAI -->
+        <div class="item">
+            <h3>🗿 MOAI</h3>
+
+            <p>+10 clicks per second</p>
+
+            <p>
+                Price:
+                <span id="moaiPrice">1000</span>
+                clicks
+            </p>
+
+            <button id="buyMoai">
+                Buy MOAI
+            </button>
+
+            <p>
+                Owned:
+                <span id="moais">0</span>
+            </p>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
