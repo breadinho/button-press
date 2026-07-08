@@ -9,6 +9,8 @@ let hands = 0;
 let clickerPrice = 10;
 let handPrice = 50;
 
+let moais = 0;
+let moaiPrice = 1000;
 
 
 const clicksText = document.getElementById("clicks");
@@ -80,6 +82,21 @@ document.getElementById("buyHand").onclick = function(){
 
 };
 
+document.getElementById("buyMoai").onclick = function(){
+
+    if(clicks >= moaiPrice){
+
+        clicks -= moaiPrice;
+
+        moais++;
+
+        moaiPrice = Math.floor(moaiPrice * 1.15);
+
+        update();
+
+    }
+
+};
 
 
 // Auto clickers
