@@ -11,225 +11,163 @@
 <body>
 
 <h1>🔘 BUTTON PRESS</h1>
-
 <h2>Clicks: <span id="clicks">0</span></h2>
-
 
 <div id="effects"></div>
 
-
-<!-- THE END SCREEN -->
+<!-- WIN SCREEN -->
 
 <div id="winScreen" class="winScreen">
-
     <div class="winBox">
-
         <h1>🥀</h1>
-
         <h2>You beat the BUTTON PRESS game!</h2>
-
         <h2>Congratulations!</h2>
+        <button id="continueButton">PLAY MORE</button>
+    </div>
+</div>
 
-        <button id="continueButton">
-            PLAY MORE
+<div class="container">
+
+    <!-- LEFT PANEL -->
+
+    <div class="savePanel">
+
+        <h2>💾 DATA</h2>
+
+        <button id="saveGame">💾 Save</button>
+
+        <button id="resetProgress">
+            🔄 Reset Progress
         </button>
+
+        <button id="resetAll">
+            💀 Reset ALL
+        </button>
+
+    </div>
+
+    <!-- CENTER -->
+
+    <div class="main">
+
+        <button id="mainButton">
+            CLICK
+        </button>
+
+        <div class="shop">
+
+            <h2>🛒 SHOP</h2>
+
+            <div class="item">
+                <h3>⚙️ Clicker</h3>
+                <p>+1 click per second</p>
+                <p>Cost: <span id="clickerPrice">10</span></p>
+                <button id="buyClicker">Buy</button>
+                <p>Owned: <span id="clickers">0</span></p>
+            </div>
+
+            <div class="item">
+                <h3>✋ Hand</h3>
+                <p>+2 clicks per click</p>
+                <p>Cost: <span id="handPrice">50</span></p>
+                <button id="buyHand">Buy</button>
+                <p>Owned: <span id="hands">0</span></p>
+            </div>
+
+            <div class="item">
+                <h3>🗿 MOAI</h3>
+                <p>+10 clicks per second</p>
+                <p>Cost: <span id="moaiPrice">1000</span></p>
+                <button id="buyMoai">Buy</button>
+                <p>Owned: <span id="moais">0</span></p>
+            </div>
+
+            <div class="item">
+                <h3>🗿 The prophecy is true, ใช้</h3>
+                <p>+50 clicks per click</p>
+                <p>Cost: <span id="prophecyPrice">10000</span></p>
+                <button id="buyProphecy">Buy</button>
+                <p>Owned: <span id="prophecies">0</span></p>
+            </div>
+
+            <div class="item">
+                <h3>🚢 Titanic</h3>
+                <p>+100 clicks per second</p>
+                <p>Cost: <span id="titanicPrice">25000</span></p>
+                <button id="buyTitanic">Buy</button>
+                <p>Owned: <span id="titanics">0</span></p>
+            </div>
+
+            <div class="item">
+                <h3>🍪 Cookie</h3>
+                <p>+1000 clicks per click</p>
+                <p>Cost: <span id="cookiePrice">100000</span></p>
+                <button id="buyCookie">Buy</button>
+                <p>Owned: <span id="cookies">0</span></p>
+            </div>
+<div class="item">
+                <h3>✋😐🤚 Absolute Cinema</h3>
+                <p>+1500 clicks per second</p>
+                <p>Cost: <span id="cinemaPrice">175000</span></p>
+                <button id="buyCinema">Buy</button>
+                <p>Owned: <span id="cinemas">0</span></p>
+            </div>
+
+            <div class="item">
+                <h3>🥀 The End</h3>
+                <p>Beat the BUTTON PRESS game.</p>
+                <p>Cost: <span id="endPrice">100000000</span></p>
+                <button id="buyEnd">Finish Game</button>
+                <p>Owned: <span id="ends">0</span>/1</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- RIGHT PANEL -->
+
+    <div class="gearShop">
+
+        <h2>⚙️ GEARS</h2>
+
+        <div class="item">
+            <h3>⚡ x2 Speed</h3>
+            <p>Auto income ×2 for 15 seconds</p>
+            <p>Cost: <span id="speedPrice">5000</span></p>
+            <button id="buySpeed">Buy</button>
+            <p>Status: <span id="speedStatus">Ready</span></p>
+        </div>
+
+        <div class="item">
+            <h3>💥 x2 Click</h3>
+            <p>Click power ×2 for 15 seconds</p>
+            <p>Cost: <span id="clickGearPrice">5000</span></p>
+            <button id="buyClickGear">Buy</button>
+            <p>Status: <span id="clickGearStatus">Ready</span></p>
+        </div>
+
+        <div class="item">
+            <h3>💰 x2 Income</h3>
+            <p>Everything ×2 for 15 seconds</p>
+            <p>Cost: <span id="incomePrice">10000</span></p>
+            <button id="buyIncome">Buy</button>
+            <p>Status: <span id="incomeStatus">Ready</span></p>
+        </div>
+
+        <div class="item">
+            <h3>🌈 x5 Money Boost</h3>
+            <p>Everything ×5 for 10 seconds</p>
+            <p>Cost: <span id="rainbowPrice">50000</span></p>
+            <button id="buyRainbow">Buy</button>
+            <p>Status: <span id="rainbowStatus">Ready</span></p>
+        </div>
 
     </div>
 
 </div>
 
-
-
-<div class="container">
-
-
-<div class="main">
-
-
-<button id="mainButton">
-CLICK
-</button>
-
-
-
-<div class="shop">
-
-<h2>🛒 SHOP</h2>
-
-
-
-<div class="item">
-<h3>⚙️ Clicker</h3>
-<p>+1 click per second</p>
-<p>Cost: <span id="clickerPrice">10</span></p>
-<button id="buyClicker">Buy</button>
-<p>Owned: <span id="clickers">0</span></p>
-</div>
-
-
-
-<div class="item">
-<h3>✋ Hand</h3>
-<p>+2 clicks per click</p>
-<p>Cost: <span id="handPrice">50</span></p>
-<button id="buyHand">Buy</button>
-<p>Owned: <span id="hands">0</span></p>
-</div>
-
-
-
-<div class="item">
-<h3>🗿 MOAI</h3>
-<p>+10 clicks per second</p>
-<p>Cost: <span id="moaiPrice">1000</span></p>
-<button id="buyMoai">Buy</button>
-<p>Owned: <span id="moais">0</span></p>
-</div>
-
-
-
-<div class="item">
-<h3>🗿 The prophecy is true, ใช้</h3>
-<p>+50 clicks per click</p>
-<p>Cost: <span id="prophecyPrice">10000</span></p>
-<button id="buyProphecy">Buy</button>
-<p>Owned: <span id="prophecies">0</span></p>
-</div>
-
-
-
-<div class="item">
-<h3>🚢 Titanic</h3>
-<p>+100 clicks per second</p>
-<p>Cost: <span id="titanicPrice">25000</span></p>
-<button id="buyTitanic">Buy</button>
-<p>Owned: <span id="titanics">0</span></p>
-</div>
-
-
-
-<div class="item">
-<h3>🍪 Cookie</h3>
-<p>+1000 clicks per click</p>
-<p>Cost: <span id="cookiePrice">100000</span></p>
-<button id="buyCookie">Buy</button>
-<p>Owned: <span id="cookies">0</span></p>
-</div>
-
-
-
-<div class="item">
-<h3>✋😐🤚 Absolute Cinema</h3>
-<p>+1500 clicks per second</p>
-<p>Cost: <span id="cinemaPrice">175000</span></p>
-<button id="buyCinema">Buy</button>
-<p>Owned: <span id="cinemas">0</span></p>
-</div>
-
-
-
-<div class="item">
-<h3>🥀 The End</h3>
-<p>Beat the BUTTON PRESS game.</p>
-<p>Cost: <span id="endPrice">1000000</span></p>
-<button id="buyEnd">Finish Game</button>
-<p>Owned: <span id="ends">0</span>/1</p>
-</div>
-
-
-</div>
-
-</div>
-
-
-
-
-
-<div class="gearShop">
-
-<h2>⚙️ GEARS</h2>
-
-
-
-<div class="item">
-
-<h3>⚡ x2 Speed</h3>
-
-<p>Auto income ×2</p>
-
-<p>Cost: <span id="speedPrice">3500</span></p>
-
-<button id="buySpeed">
-Buy
-</button>
-
-<p>
-Status:
-<span id="speedStatus">Ready</span>
-</p>
-
-</div>
-
-
-
-
-<div class="item">
-
-<h3>💥 x2 Click</h3>
-
-<p>Click power ×2</p>
-
-<p>Cost:
-<span id="clickGearPrice">5000</span>
-</p>
-
-<button id="buyClickGear">
-Buy
-</button>
-
-<p>
-Status:
-<span id="clickGearStatus">Ready</span>
-</p>
-
-</div>
-
-
-
-
-<div class="item">
-
-<h3>💰 x2 Income</h3>
-
-<p>Everything ×2</p>
-
-<p>Cost:
-<span id="incomePrice">10000</span>
-</p>
-
-<button id="buyIncome">
-Buy
-</button>
-
-<p>
-Status:
-<span id="incomeStatus">Ready</span>
-</p>
-
-</div>
-
-
-
-</div>
-
-
-</div>
-
-
-
 <script src="script.js"></script>
 
-
 </body>
-
 </html>

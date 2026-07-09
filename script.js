@@ -1,7 +1,11 @@
-// ===== VARIABLES =====
+// ===============================
+// BUTTON PRESS v3.0
+// Part 1 - Variables & Elements
+// ===============================
+
+// ---------- GAME DATA ----------
 
 let clicks = 0;
-
 let clickPower = 1;
 
 let clickers = 0;
@@ -13,6 +17,7 @@ let cookies = 0;
 let cinemas = 0;
 let ends = 0;
 
+// ---------- SHOP PRICES ----------
 
 let clickerPrice = 10;
 let handPrice = 50;
@@ -21,25 +26,34 @@ let prophecyPrice = 10000;
 let titanicPrice = 25000;
 let cookiePrice = 100000;
 let cinemaPrice = 175000;
+let endPrice = 100000000;
 
+// ---------- GEAR PRICES ----------
 
-let speedPrice = 3500;
-let clickGearPrice = 5000;
-let incomePrice = 10000;
+const speedPrice = 5000;
+const clickGearPrice = 5000;
+const incomePrice = 10000;
+const rainbowPrice = 50000;
 
+// ---------- PRICE CAP ----------
+
+const PRICE_CAP = 500000;
+
+// ---------- GEAR STATES ----------
 
 let speedActive = false;
 let clickGearActive = false;
 let incomeActive = false;
-
+let rainbowActive = false;
 
 let speedTime = 0;
 let clickGearTime = 0;
 let incomeTime = 0;
+let rainbowTime = 0;
 
+// ---------- DOM ----------
 
-
-// ===== ELEMENTS =====
+const mainButton = document.getElementById("mainButton");
 
 const clicksText = document.getElementById("clicks");
 
@@ -52,7 +66,6 @@ const cookiesText = document.getElementById("cookies");
 const cinemasText = document.getElementById("cinemas");
 const endsText = document.getElementById("ends");
 
-
 const clickerPriceText = document.getElementById("clickerPrice");
 const handPriceText = document.getElementById("handPrice");
 const moaiPriceText = document.getElementById("moaiPrice");
@@ -60,437 +73,399 @@ const prophecyPriceText = document.getElementById("prophecyPrice");
 const titanicPriceText = document.getElementById("titanicPrice");
 const cookiePriceText = document.getElementById("cookiePrice");
 const cinemaPriceText = document.getElementById("cinemaPrice");
-
+const endPriceText = document.getElementById("endPrice");
 
 const speedStatus = document.getElementById("speedStatus");
-const clickGearStatus = document.getElementById("clickGearStatus");
+const clickStatus = document.getElementById("clickGearStatus");
 const incomeStatus = document.getElementById("incomeStatus");
+const rainbowStatus = document.getElementById("rainbowStatus");
 
+// ---------- BUTTONS ----------
 
+const buyClicker = document.getElementById("buyClicker");
+const buyHand = document.getElementById("buyHand");
+const buyMoai = document.getElementById("buyMoai");
+const buyProphecy = document.getElementById("buyProphecy");
+const buyTitanic = document.getElementById("buyTitanic");
+const buyCookie = document.getElementById("buyCookie");
+const buyCinema = document.getElementById("buyCinema");
+const buyEnd = document.getElementById("buyEnd");
 
-// ===== MAIN BUTTON =====
+const buySpeed = document.getElementById("buySpeed");
+const buyClickGear = document.getElementById("buyClickGear");
+const buyIncome = document.getElementById("buyIncome");
+const buyRainbow = document.getElementById("buyRainbow");
 
-document.getElementById("mainButton").onclick = (event) => {
+const saveGame = document.getElementById("saveGame");
+const resetProgress = document.getElementById("resetProgress");
+const resetAll = document.getElementById("resetAll");
 
+const winScreen = document.getElementById("winScreen");
+const continueButton = document.getElementById("continueButton");
+// ===============================
+// MAIN BUTTON
+// ===============================
+
+mainButton.onclick = (e) => {
 
     let gain = clickPower;
 
-
-    if (clickGearActive) {
-
-        gain *= 2;
-
-    }
-
-
-    if (incomeActive) {
-
-        gain *= 2;
-
-    }
-
+    if (clickGearActive) gain *= 2;
+    if (incomeActive) gain *= 2;
+    if (rainbowActive) gain *= 5;
 
     clicks += gain;
 
-
-
-    // 💥 ONLY x2 CLICK OR x2 INCOME
-
     if (clickGearActive || incomeActive) {
 
-
-        let boom = document.createElement("div");
-
+        const boom = document.createElement("div");
 
         boom.className = "effect";
-
         boom.innerHTML = "💥";
 
-
-        boom.style.left = event.clientX + "px";
-
-        boom.style.top = event.clientY + "px";
-
+        boom.style.left = e.clientX + "px";
+        boom.style.top = e.clientY + "px";
 
         document.body.appendChild(boom);
 
-
-        setTimeout(() => {
-
-            boom.remove();
-
-        }, 800);
-
+        setTimeout(() => boom.remove(), 800);
 
     }
-
-
 
     update();
 
+};
+
+// ===============================
+// SHOP
+// ===============================
+
+buyClicker.onclick = () => {
+
+    if (clicks < clickerPrice) return;
+
+    clicks -= clickerPrice;
+    clickers++;
+
+    clickerPrice = Math.min(
+        Math.floor(clickerPrice * 1.25),
+        10 * PRICE_CAP
+    );
+
+    update();
 
 };
 
+buyHand.onclick = () => {
 
+    if (clicks < handPrice) return;
 
-// ===== SHOP =====
+    clicks -= handPrice;
+    hands++;
 
+    clickPower += 2;
 
-document.getElementById("buyClicker").onclick = () => {
+    handPrice = Math.min(
+        Math.floor(handPrice * 1.25),
+        50 * PRICE_CAP
+    );
 
-    if (clicks >= clickerPrice) {
-
-        clicks -= clickerPrice;
-
-        clickers++;
-
-        clickerPrice = Math.floor(clickerPrice * 1.25);
-
-        update();
-
-    }
+    update();
 
 };
 
+buyMoai.onclick = () => {
 
+    if (clicks < moaiPrice) return;
 
-document.getElementById("buyHand").onclick = () => {
+    clicks -= moaiPrice;
+    moais++;
 
-    if (clicks >= handPrice) {
+    moaiPrice = Math.min(
+        Math.floor(moaiPrice * 1.15),
+        1000 * PRICE_CAP
+    );
 
-        clicks -= handPrice;
-
-        hands++;
-
-        clickPower += 2;
-
-        handPrice = Math.floor(handPrice * 1.25);
-
-        update();
-
-    }
+    update();
 
 };
 
+buyProphecy.onclick = () => {
 
+    if (clicks < prophecyPrice) return;
 
-document.getElementById("buyMoai").onclick = () => {
+    clicks -= prophecyPrice;
+    prophecies++;
 
-    if (clicks >= moaiPrice) {
+    clickPower += 50;
 
-        clicks -= moaiPrice;
+    prophecyPrice = Math.min(
+        Math.floor(prophecyPrice * 1.15),
+        10000 * PRICE_CAP
+    );
 
-        moais++;
-
-        moaiPrice = Math.floor(moaiPrice * 1.15);
-
-        update();
-
-    }
-
-};
-
-
-
-document.getElementById("buyProphecy").onclick = () => {
-
-    if (clicks >= prophecyPrice) {
-
-        clicks -= prophecyPrice;
-
-        prophecies++;
-
-        clickPower += 50;
-
-        prophecyPrice = Math.floor(prophecyPrice * 1.15);
-
-        update();
-
-    }
+    update();
 
 };
 
+buyTitanic.onclick = () => {
 
+    if (clicks < titanicPrice) return;
 
-document.getElementById("buyTitanic").onclick = () => {
+    clicks -= titanicPrice;
+    titanics++;
 
-    if (clicks >= titanicPrice) {
+    titanicPrice = Math.min(
+        Math.floor(titanicPrice * 1.125),
+        25000 * PRICE_CAP
+    );
 
-        clicks -= titanicPrice;
-
-        titanics++;
-
-        titanicPrice = Math.floor(titanicPrice * 1.125);
-
-        update();
-
-    }
+    update();
 
 };
 
+buyCookie.onclick = () => {
 
+    if (clicks < cookiePrice) return;
 
-document.getElementById("buyCookie").onclick = () => {
+    clicks -= cookiePrice;
+    cookies++;
 
-    if (clicks >= cookiePrice) {
+    clickPower += 1000;
 
-        clicks -= cookiePrice;
+    cookiePrice = Math.min(
+        Math.floor(cookiePrice * 1.075),
+        100000 * PRICE_CAP
+    );
 
-        cookies++;
-
-        clickPower += 1000;
-
-        cookiePrice = Math.floor(cookiePrice * 1.075);
-
-        update();
-
-    }
+    update();
 
 };
 
+buyCinema.onclick = () => {
 
+    if (clicks < cinemaPrice) return;
 
-document.getElementById("buyCinema").onclick = () => {
+    clicks -= cinemaPrice;
+    cinemas++;
 
-    if (clicks >= cinemaPrice) {
+    cinemaPrice = Math.min(
+        Math.floor(cinemaPrice * 1.035),
+        175000 * PRICE_CAP
+    );
 
-        clicks -= cinemaPrice;
-
-        cinemas++;
-
-        // IMPORTANT:
-        // NO clickPower increase here.
-        // Cinema gives +1500/sec.
-
-        cinemaPrice = Math.floor(cinemaPrice * 1.035);
-
-        update();
-
-    }
+    update();
 
 };
+// ===============================
+// GEARS
+// ===============================
 
-
-
-// ===== GEARS =====
-
-
-document.getElementById("buySpeed").onclick = () => {
-
-    if (clicks >= speedPrice) {
-
-        clicks -= speedPrice;
-
-        speedActive = true;
-
-        speedTime = 15;
-
-        update();
-
-    }
-
+buySpeed.onclick = () => {
+    if (clicks < speedPrice) return;
+    clicks -= speedPrice;
+    speedActive = true;
+    speedTime = 15;
+    update();
 };
 
-
-
-document.getElementById("buyClickGear").onclick = () => {
-
-    if (clicks >= clickGearPrice) {
-
-        clicks -= clickGearPrice;
-
-        clickGearActive = true;
-
-        clickGearTime = 15;
-
-        update();
-
-    }
-
+buyClickGear.onclick = () => {
+    if (clicks < clickGearPrice) return;
+    clicks -= clickGearPrice;
+    clickGearActive = true;
+    clickGearTime = 15;
+    update();
 };
 
-
-
-document.getElementById("buyIncome").onclick = () => {
-
-    if (clicks >= incomePrice) {
-
-        clicks -= incomePrice;
-
-        incomeActive = true;
-
-        incomeTime = 15;
-
-        update();
-
-    }
-
+buyIncome.onclick = () => {
+    if (clicks < incomePrice) return;
+    clicks -= incomePrice;
+    incomeActive = true;
+    incomeTime = 15;
+    update();
 };
-// ===== AUTO INCOME =====
+
+buyRainbow.onclick = () => {
+    if (clicks < rainbowPrice) return;
+
+    clicks -= rainbowPrice;
+
+    rainbowActive = true;
+    rainbowTime = 10;
+
+    mainButton.classList.add("rainbowButton");
+
+    update();
+};
+
+// ===============================
+// AUTO INCOME
+// ===============================
 
 setInterval(() => {
 
     let cps = 0;
 
-
-    // Normal auto income
-
-    cps += clickers * 1;
+    cps += clickers;
     cps += moais * 10;
     cps += titanics * 100;
-
-
-    // ✋😐🤚 Absolute Cinema
-
     cps += cinemas * 1500;
 
-
-
-    if (speedActive) {
-
-        cps *= 2;
-
-    }
-
-
-
-    if (incomeActive) {
-
-        cps *= 2;
-
-    }
-
-
+    if (speedActive) cps *= 2;
+    if (incomeActive) cps *= 2;
+    if (rainbowActive) cps *= 5;
 
     clicks += cps / 10;
 
-
-
     update();
-
 
 }, 100);
 
-
-
-
-// ===== GEAR TIMERS =====
-
+// ===============================
+// TIMERS
+// ===============================
 
 setInterval(() => {
 
+    if (speedActive && --speedTime <= 0)
+        speedActive = false;
 
-    if (speedActive) {
+    if (clickGearActive && --clickGearTime <= 0)
+        clickGearActive = false;
 
-        speedTime--;
+    if (incomeActive && --incomeTime <= 0)
+        incomeActive = false;
 
-        if (speedTime <= 0) {
+    if (rainbowActive && --rainbowTime <= 0) {
 
-            speedActive = false;
-            speedTime = 0;
-
-        }
-
-    }
-
-
-
-
-    if (clickGearActive) {
-
-        clickGearTime--;
-
-        if (clickGearTime <= 0) {
-
-            clickGearActive = false;
-            clickGearTime = 0;
-
-        }
+        rainbowActive = false;
+        mainButton.classList.remove("rainbowButton");
 
     }
-
-
-
-
-    if (incomeActive) {
-
-        incomeTime--;
-
-        if (incomeTime <= 0) {
-
-            incomeActive = false;
-            incomeTime = 0;
-
-        }
-
-    }
-
-
 
     update();
 
-
 }, 1000);
 
+// ===============================
+// THE END
+// ===============================
 
+buyEnd.onclick = () => {
 
+    if (clicks < endPrice || ends >= 1) return;
 
+    clicks -= endPrice;
+    ends++;
 
-// ===== THE END =====
+    winScreen.style.display = "flex";
 
-
-document.getElementById("buyEnd").onclick = () => {
-
-
-    if (clicks >= 1000000 && ends < 1) {
-
-
-        clicks -= 1000000;
-
-
-        ends++;
-
-
-        document.getElementById("winScreen").style.display = "flex";
-
-
-        update();
-
-
-    }
-
+    update();
 
 };
 
+continueButton.onclick = () => {
 
-
-
-
-// ===== CONTINUE AFTER WIN =====
-
-
-document.getElementById("continueButton").onclick = () => {
-
-
-    document.getElementById("winScreen").style.display = "none";
-
+    winScreen.style.display = "none";
 
 };
 
+// ===============================
+// SAVE
+// ===============================
 
+saveGame.onclick = () => {
 
+    const save = {
 
+        clicks,
+        clickPower,
 
+        clickers,
+        hands,
+        moais,
+        prophecies,
+        titanics,
+        cookies,
+        cinemas,
+        ends,
 
-// ===== UPDATE UI =====
+        clickerPrice,
+        handPrice,
+        moaiPrice,
+        prophecyPrice,
+        titanicPrice,
+        cookiePrice,
+        cinemaPrice,
+        endPrice
 
+    };
+
+    localStorage.setItem(
+        "buttonPressSave",
+        JSON.stringify(save)
+    );
+
+    alert("Game Saved!");
+
+};
+
+// ===============================
+// LOAD
+// ===============================
+
+const save = JSON.parse(localStorage.getItem("buttonPressSave"));
+
+if (save) {
+
+    clicks = save.clicks ?? clicks;
+    clickPower = save.clickPower ?? clickPower;
+
+    clickers = save.clickers ?? clickers;
+    hands = save.hands ?? hands;
+    moais = save.moais ?? moais;
+    prophecies = save.prophecies ?? prophecies;
+    titanics = save.titanics ?? titanics;
+    cookies = save.cookies ?? cookies;
+    cinemas = save.cinemas ?? cinemas;
+    ends = save.ends ?? ends;
+
+    clickerPrice = save.clickerPrice ?? clickerPrice;
+    handPrice = save.handPrice ?? handPrice;
+    moaiPrice = save.moaiPrice ?? moaiPrice;
+    prophecyPrice = save.prophecyPrice ?? prophecyPrice;
+    titanicPrice = save.titanicPrice ?? titanicPrice;
+    cookiePrice = save.cookiePrice ?? cookiePrice;
+    cinemaPrice = save.cinemaPrice ?? cinemaPrice;
+    endPrice = save.endPrice ?? endPrice;
+
+}
+
+// ===============================
+// RESET
+// ===============================
+
+resetProgress.onclick = () => {
+
+    localStorage.removeItem("buttonPressSave");
+    location.reload();
+
+};
+
+resetAll.onclick = () => {
+
+    localStorage.clear();
+    location.reload();
+
+};
+
+// ===============================
+// UPDATE
+// ===============================
 
 function update() {
 
-
     clicksText.textContent = Math.floor(clicks);
-
-
 
     clickersText.textContent = clickers;
     handsText.textContent = hands;
@@ -501,8 +476,6 @@ function update() {
     cinemasText.textContent = cinemas;
     endsText.textContent = ends;
 
-
-
     clickerPriceText.textContent = clickerPrice;
     handPriceText.textContent = handPrice;
     moaiPriceText.textContent = moaiPrice;
@@ -510,51 +483,25 @@ function update() {
     titanicPriceText.textContent = titanicPrice;
     cookiePriceText.textContent = cookiePrice;
     cinemaPriceText.textContent = cinemaPrice;
-
-
-
+    endPriceText.textContent = endPrice;
 
     speedStatus.textContent =
-        speedActive
-        ? "⚡ Active (" + speedTime + "s)"
-        : "Ready";
+        speedActive ? "⚡ " + speedTime + "s" : "Ready";
 
-
-
-    clickGearStatus.textContent =
-        clickGearActive
-        ? "💥 Active (" + clickGearTime + "s)"
-        : "Ready";
-
-
+    clickStatus.textContent =
+        clickGearActive ? "💥 " + clickGearTime + "s" : "Ready";
 
     incomeStatus.textContent =
-        incomeActive
-        ? "💰 Active (" + incomeTime + "s)"
-        : "Ready";
+        incomeActive ? "💰 " + incomeTime + "s" : "Ready";
 
-
-
-
+    rainbowStatus.textContent =
+        rainbowActive ? "🌈 " + rainbowTime + "s" : "Ready";
 
     if (ends >= 1) {
-
-        document.getElementById("buyEnd").innerHTML = "MAXED";
-
+        buyEnd.disabled = true;
+        buyEnd.textContent = "MAXED";
     }
 
-
-
 }
-
-
-
-
-
-// ===== START =====
-
-
-document.getElementById("winScreen").style.display = "none";
-
 
 update();
