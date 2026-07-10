@@ -175,6 +175,7 @@ const completedText =
 // ---------- Floating Click Variables ----------
 
 let floatingValue = 0;
+let floatingResetTimer = null;
 
 // ---------- Settings ----------
 
@@ -207,6 +208,18 @@ function spawnFloatingText(x, y, amount) {
         text.textContent = "+" + amount;
 
     }
+
+    if (stackFloating) {
+
+    clearTimeout(floatingResetTimer);
+
+    floatingResetTimer = setTimeout(() => {
+
+        floatingValue = 0;
+
+    }, 2000);
+
+}
 
     text.style.left = x + "px";
     text.style.top = y + "px";
