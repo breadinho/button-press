@@ -217,7 +217,7 @@ function spawnFloatingText(x, y, amount) {
 
         floatingValue = 0;
 
-    }, 2000);
+    }, 1000);
 
 }
 
