@@ -1,12 +1,26 @@
-// ===============================
-// BUTTON PRESS v3.0
-// Part 1 - Variables & Elements
-// ===============================
+// ======================================
+// BUTTON PRESS v4.0
+// Part 1 - Variables & DOM
+// ======================================
 
-// ---------- GAME DATA ----------
+// ---------- Currency ----------
 
 let clicks = 0;
 let clickPower = 1;
+
+const PRICE_CAP = 500000;
+
+// ---------- Statistics ----------
+
+let buttonClicks = 0;
+let autoClicks = 0;
+let itemsBought = 0;
+let totalSpent = 0;
+let highestCPS = 0;
+let gearsUsed = 0;
+let timesSaved = 0;
+
+// ---------- Shop ----------
 
 let clickers = 0;
 let hands = 0;
@@ -17,7 +31,7 @@ let cookies = 0;
 let cinemas = 0;
 let ends = 0;
 
-// ---------- SHOP PRICES ----------
+// ---------- Prices ----------
 
 let clickerPrice = 10;
 let handPrice = 50;
@@ -28,18 +42,27 @@ let cookiePrice = 100000;
 let cinemaPrice = 175000;
 let endPrice = 100000000;
 
-// ---------- GEAR PRICES ----------
+// ---------- Discount Shop ----------
+
+const tapesPrice = 7500;
+const dogPrice = 60000;
+const gamblingPrice = 25000;
+
+let tapesOwned = 0;
+let dogOwned = 0;
+
+let tapesCharges = 0;
+let dogCharges = 0;
+
+let gamblingDiscount = 0;
+let gamblingActive = false;
+
+// ---------- Gears ----------
 
 const speedPrice = 5000;
 const clickGearPrice = 5000;
 const incomePrice = 10000;
 const rainbowPrice = 50000;
-
-// ---------- PRICE CAP ----------
-
-const PRICE_CAP = 500000;
-
-// ---------- GEAR STATES ----------
 
 let speedActive = false;
 let clickGearActive = false;
@@ -51,36 +74,24 @@ let clickGearTime = 0;
 let incomeTime = 0;
 let rainbowTime = 0;
 
+// ---------- Settings ----------
+
+let stackFloating = false;
+
 // ---------- DOM ----------
 
-const mainButton = document.getElementById("mainButton");
+// Main
 
+const mainButton = document.getElementById("mainButton");
 const clicksText = document.getElementById("clicks");
 
-const clickersText = document.getElementById("clickers");
-const handsText = document.getElementById("hands");
-const moaisText = document.getElementById("moais");
-const propheciesText = document.getElementById("prophecies");
-const titanicsText = document.getElementById("titanics");
-const cookiesText = document.getElementById("cookies");
-const cinemasText = document.getElementById("cinemas");
-const endsText = document.getElementById("ends");
+// Save
 
-const clickerPriceText = document.getElementById("clickerPrice");
-const handPriceText = document.getElementById("handPrice");
-const moaiPriceText = document.getElementById("moaiPrice");
-const prophecyPriceText = document.getElementById("prophecyPrice");
-const titanicPriceText = document.getElementById("titanicPrice");
-const cookiePriceText = document.getElementById("cookiePrice");
-const cinemaPriceText = document.getElementById("cinemaPrice");
-const endPriceText = document.getElementById("endPrice");
+const saveGame = document.getElementById("saveGame");
+const resetProgress = document.getElementById("resetProgress");
+const resetAll = document.getElementById("resetAll");
 
-const speedStatus = document.getElementById("speedStatus");
-const clickStatus = document.getElementById("clickGearStatus");
-const incomeStatus = document.getElementById("incomeStatus");
-const rainbowStatus = document.getElementById("rainbowStatus");
-
-// ---------- BUTTONS ----------
+// Shop Buttons
 
 const buyClicker = document.getElementById("buyClicker");
 const buyHand = document.getElementById("buyHand");
@@ -91,216 +102,620 @@ const buyCookie = document.getElementById("buyCookie");
 const buyCinema = document.getElementById("buyCinema");
 const buyEnd = document.getElementById("buyEnd");
 
+// Discount Buttons
+
+const buyTapes = document.getElementById("buyTapes");
+const buyDog = document.getElementById("buyDog");
+const buyGambling = document.getElementById("buyGambling");
+
+// Gear Buttons
+
 const buySpeed = document.getElementById("buySpeed");
 const buyClickGear = document.getElementById("buyClickGear");
 const buyIncome = document.getElementById("buyIncome");
 const buyRainbow = document.getElementById("buyRainbow");
 
-const saveGame = document.getElementById("saveGame");
-const resetProgress = document.getElementById("resetProgress");
-const resetAll = document.getElementById("resetAll");
+// Settings
+
+const stackFloatingClicks =
+    document.getElementById("stackFloatingClicks");
+
+// Win Screen
 
 const winScreen = document.getElementById("winScreen");
-const continueButton = document.getElementById("continueButton");
-// ===============================
-// MAIN BUTTON
-// ===============================
+const continueButton =
+    document.getElementById("continueButton");
+
+// Shop Counters
+
+const clickersText = document.getElementById("clickers");
+const handsText = document.getElementById("hands");
+const moaisText = document.getElementById("moais");
+const propheciesText =
+    document.getElementById("prophecies");
+const titanicsText =
+    document.getElementById("titanics");
+const cookiesText = document.getElementById("cookies");
+const cinemasText = document.getElementById("cinemas");
+const endsText = document.getElementById("ends");
+
+// Statistics
+
+const statClicks =
+    document.getElementById("statClicks");
+
+const buttonClicksText =
+    document.getElementById("buttonClicks");
+
+const autoClicksText =
+    document.getElementById("autoClicks");
+
+const itemsBoughtText =
+    document.getElementById("itemsBought");
+
+const totalSpentText =
+    document.getElementById("totalSpent");
+
+const highestCPSText =
+    document.getElementById("highestCPS");
+
+const gearsUsedText =
+    document.getElementById("gearsUsed");
+
+const timesSavedText =
+    document.getElementById("timesSaved");
+
+const completedText =
+    document.getElementById("gameCompleted");
+// ======================================
+// BUTTON PRESS v4.0
+// Part 2 - Main Button & Effects
+// ======================================
+
+// ---------- Floating Click Variables ----------
+
+let floatingValue = 0;
+
+// ---------- Settings ----------
+
+if (stackFloatingClicks) {
+
+    stackFloatingClicks.onchange = () => {
+
+        stackFloating = stackFloatingClicks.checked;
+
+    };
+
+}
+
+// ---------- Floating Text ----------
+
+function spawnFloatingText(x, y, amount) {
+
+    const text = document.createElement("div");
+
+    text.className = "floatingClicks";
+
+    if (stackFloating) {
+
+        floatingValue += amount;
+        text.textContent = "+" + floatingValue;
+
+    } else {
+
+        floatingValue = 0;
+        text.textContent = "+" + amount;
+
+    }
+
+    text.style.left = x + "px";
+    text.style.top = y + "px";
+
+    document.body.appendChild(text);
+
+    setTimeout(() => {
+
+        text.remove();
+
+    }, 900);
+
+}
+
+// ---------- Explosion Effect ----------
+
+function spawnBoostEffect(x, y) {
+
+    const effect = document.createElement("div");
+
+    effect.className = "effect";
+
+    if (Math.random() < 0.55) {
+
+        effect.textContent = "💥";
+
+    } else {
+
+        effect.textContent = "💢";
+
+    }
+
+    effect.style.left = x + "px";
+    effect.style.top = y + "px";
+
+    document.body.appendChild(effect);
+
+    setTimeout(() => {
+
+        effect.remove();
+
+    }, 800);
+
+}
+
+// ---------- Main Button ----------
 
 mainButton.onclick = (e) => {
 
     let gain = clickPower;
 
-    if (clickGearActive) gain *= 2;
-    if (incomeActive) gain *= 2;
-    if (rainbowActive) gain *= 5;
+    if (clickGearActive)
+        gain *= 2;
+
+    if (incomeActive)
+        gain *= 2;
+
+    if (rainbowActive)
+        gain *= 5;
 
     clicks += gain;
 
+    buttonClicks++;
+
+    spawnFloatingText(
+        e.clientX,
+        e.clientY - 20,
+        gain
+    );
+
     if (clickGearActive || incomeActive) {
 
-        const boom = document.createElement("div");
-
-        boom.className = "effect";
-        boom.innerHTML = "💥";
-
-        boom.style.left = e.clientX + "px";
-        boom.style.top = e.clientY + "px";
-
-        document.body.appendChild(boom);
-
-        setTimeout(() => boom.remove(), 800);
+        spawnBoostEffect(
+            e.clientX,
+            e.clientY
+        );
 
     }
 
     update();
 
 };
+// ======================================
+// BUTTON PRESS v4.0
+// Part 3 - Shop
+// ======================================
 
-// ===============================
-// SHOP
-// ===============================
+// ---------- Helper ----------
+
+function buyNormalItem(price, onBuy, multiplier) {
+
+    if (clicks < price)
+        return price;
+
+    clicks -= price;
+
+    totalSpent += price;
+    itemsBought++;
+
+    onBuy();
+
+    price = Math.min(
+        Math.floor(price * multiplier),
+        PRICE_CAP
+    );
+
+    update();
+
+    return price;
+
+}
+
+// ---------- Clicker ----------
 
 buyClicker.onclick = () => {
 
-    if (clicks < clickerPrice) return;
+    clickerPrice = buyNormalItem(
 
-    clicks -= clickerPrice;
-    clickers++;
+        clickerPrice,
 
-    clickerPrice = Math.min(
-        Math.floor(clickerPrice * 1.25),
-        10 * PRICE_CAP
+        () => {
+
+            clickers++;
+
+        },
+
+        1.25
+
     );
 
-    update();
-
 };
+
+// ---------- Hand ----------
 
 buyHand.onclick = () => {
 
-    if (clicks < handPrice) return;
+    handPrice = buyNormalItem(
 
-    clicks -= handPrice;
-    hands++;
+        handPrice,
 
-    clickPower += 2;
+        () => {
 
-    handPrice = Math.min(
-        Math.floor(handPrice * 1.25),
-        50 * PRICE_CAP
+            hands++;
+            clickPower += 2;
+
+        },
+
+        1.25
+
     );
 
-    update();
-
 };
+
+// ---------- MOAI ----------
 
 buyMoai.onclick = () => {
 
-    if (clicks < moaiPrice) return;
+    moaiPrice = buyNormalItem(
 
-    clicks -= moaiPrice;
-    moais++;
+        moaiPrice,
 
-    moaiPrice = Math.min(
-        Math.floor(moaiPrice * 1.15),
-        1000 * PRICE_CAP
+        () => {
+
+            moais++;
+
+        },
+
+        1.15
+
     );
 
-    update();
-
 };
+
+// ---------- Prophecy ----------
 
 buyProphecy.onclick = () => {
 
-    if (clicks < prophecyPrice) return;
+    prophecyPrice = buyNormalItem(
 
-    clicks -= prophecyPrice;
-    prophecies++;
+        prophecyPrice,
 
-    clickPower += 50;
+        () => {
 
-    prophecyPrice = Math.min(
-        Math.floor(prophecyPrice * 1.15),
-        10000 * PRICE_CAP
+            prophecies++;
+            clickPower += 50;
+
+        },
+
+        1.15
+
     );
 
-    update();
-
 };
+
+// ---------- Titanic ----------
 
 buyTitanic.onclick = () => {
 
-    if (clicks < titanicPrice) return;
+    titanicPrice = buyNormalItem(
 
-    clicks -= titanicPrice;
-    titanics++;
+        titanicPrice,
 
-    titanicPrice = Math.min(
-        Math.floor(titanicPrice * 1.125),
-        25000 * PRICE_CAP
+        () => {
+
+            titanics++;
+
+        },
+
+        1.125
+
     );
 
-    update();
-
 };
+
+// ---------- Cookie ----------
 
 buyCookie.onclick = () => {
 
-    if (clicks < cookiePrice) return;
+    cookiePrice = buyNormalItem(
 
-    clicks -= cookiePrice;
-    cookies++;
+        cookiePrice,
 
-    clickPower += 1000;
+        () => {
 
-    cookiePrice = Math.min(
-        Math.floor(cookiePrice * 1.075),
-        100000 * PRICE_CAP
+            cookies++;
+            clickPower += 1000;
+
+        },
+
+        1.075
+
     );
 
-    update();
-
 };
+
+// ---------- Absolute Cinema ----------
 
 buyCinema.onclick = () => {
 
-    if (clicks < cinemaPrice) return;
+    cinemaPrice = buyNormalItem(
 
-    clicks -= cinemaPrice;
-    cinemas++;
+        cinemaPrice,
 
-    cinemaPrice = Math.min(
-        Math.floor(cinemaPrice * 1.035),
-        175000 * PRICE_CAP
+        () => {
+
+            cinemas++;
+
+        },
+
+        1.035
+
+    );
+
+};
+
+// ---------- The End ----------
+
+buyEnd.onclick = () => {
+
+    if (ends >= 1)
+        return;
+
+    if (clicks < endPrice)
+        return;
+
+    clicks -= endPrice;
+
+    totalSpent += endPrice;
+
+    ends = 1;
+
+    if (winScreen)
+        winScreen.style.display = "flex";
+
+    update();
+
+};
+
+continueButton.onclick = () => {
+
+    if (winScreen)
+        winScreen.style.display = "none";
+
+};
+// ======================================
+// BUTTON PRESS v4.0
+// Part 4 - Discount Shop
+// ======================================
+
+// ---------- Get Discount ----------
+
+function getDiscountMultiplier() {
+
+    // 📼 Tapes
+    if (tapesCharges > 0) {
+
+        tapesCharges--;
+
+        return 0.85;
+
+    }
+
+    // 🐶 Discount Dog
+    if (dogCharges > 0) {
+
+        dogCharges--;
+
+        return 0.60;
+
+    }
+
+    // 🎲 Gambling
+    if (gamblingActive) {
+
+        gamblingActive = false;
+
+        return (100 - gamblingDiscount) / 100;
+
+    }
+
+    return 1;
+
+}
+
+// ---------- Buy Tapes ----------
+
+buyTapes.onclick = () => {
+
+    if (clicks < tapesPrice)
+        return;
+
+    clicks -= tapesPrice;
+
+    totalSpent += tapesPrice;
+
+    tapesOwned++;
+
+    tapesCharges = 1;
+
+    update();
+
+};
+
+// ---------- Buy Dog ----------
+
+buyDog.onclick = () => {
+
+    if (clicks < dogPrice)
+        return;
+
+    clicks -= dogPrice;
+
+    totalSpent += dogPrice;
+
+    dogOwned++;
+
+    dogCharges += 3;
+
+    update();
+
+};
+
+// ---------- Gambling ----------
+
+buyGambling.onclick = () => {
+
+    if (clicks < gamblingPrice)
+        return;
+
+    clicks -= gamblingPrice;
+
+    totalSpent += gamblingPrice;
+
+    gamblingDiscount =
+        Math.floor(Math.random() * 86) + 15;
+
+    gamblingActive = true;
+
+    alert(
+        "🎲 You rolled " +
+        gamblingDiscount +
+        "% OFF!\n\nYour next SHOP item is discounted!"
     );
 
     update();
 
 };
-// ===============================
-// GEARS
-// ===============================
+
+// ======================================
+// Replace buyNormalItem()
+// with this one!
+// ======================================
+
+function buyNormalItem(price, onBuy, multiplier) {
+
+    if (clicks < price)
+        return price;
+
+    let discount = getDiscountMultiplier();
+
+    let finalPrice =
+        Math.floor(price * discount);
+
+    if (clicks < finalPrice)
+        return price;
+
+    clicks -= finalPrice;
+
+    totalSpent += finalPrice;
+
+    itemsBought++;
+
+    onBuy();
+
+    price = Math.min(
+
+        Math.floor(price * multiplier),
+
+        PRICE_CAP
+
+    );
+
+    update();
+
+    return price;
+
+}
+// ======================================
+// BUTTON PRESS v4.0
+// Part 5 - Gears & Auto Income
+// ======================================
+
+// ---------- Speed ----------
 
 buySpeed.onclick = () => {
+
     if (clicks < speedPrice) return;
+
     clicks -= speedPrice;
+    totalSpent += speedPrice;
+
     speedActive = true;
     speedTime = 15;
+
+    gearsUsed++;
+
     update();
+
 };
+
+// ---------- x2 Click ----------
 
 buyClickGear.onclick = () => {
+
     if (clicks < clickGearPrice) return;
+
     clicks -= clickGearPrice;
+    totalSpent += clickGearPrice;
+
     clickGearActive = true;
     clickGearTime = 15;
+
+    gearsUsed++;
+
     update();
+
 };
+
+// ---------- x2 Money ----------
 
 buyIncome.onclick = () => {
+
     if (clicks < incomePrice) return;
+
     clicks -= incomePrice;
+    totalSpent += incomePrice;
+
     incomeActive = true;
     incomeTime = 15;
+
+    gearsUsed++;
+
     update();
+
 };
 
+// ---------- Rainbow ----------
+
 buyRainbow.onclick = () => {
+
     if (clicks < rainbowPrice) return;
 
     clicks -= rainbowPrice;
+    totalSpent += rainbowPrice;
 
     rainbowActive = true;
     rainbowTime = 10;
 
+    gearsUsed++;
+
     mainButton.classList.add("rainbowButton");
 
     update();
+
 };
 
-// ===============================
+// ======================================
 // AUTO INCOME
-// ===============================
+// ======================================
 
 setInterval(() => {
 
@@ -311,72 +726,88 @@ setInterval(() => {
     cps += titanics * 100;
     cps += cinemas * 1500;
 
-    if (speedActive) cps *= 2;
-    if (incomeActive) cps *= 2;
-    if (rainbowActive) cps *= 5;
+    if (speedActive)
+        cps *= 2;
+
+    if (incomeActive)
+        cps *= 2;
+
+    if (rainbowActive)
+        cps *= 5;
+
+    if (cps > highestCPS)
+        highestCPS = cps;
 
     clicks += cps / 10;
+
+    autoClicks += cps / 10;
 
     update();
 
 }, 100);
 
-// ===============================
+// ======================================
 // TIMERS
-// ===============================
+// ======================================
 
 setInterval(() => {
 
-    if (speedActive && --speedTime <= 0)
-        speedActive = false;
+    if (speedActive) {
 
-    if (clickGearActive && --clickGearTime <= 0)
-        clickGearActive = false;
+        speedTime--;
 
-    if (incomeActive && --incomeTime <= 0)
-        incomeActive = false;
+        if (speedTime <= 0)
+            speedActive = false;
 
-    if (rainbowActive && --rainbowTime <= 0) {
+    }
 
-        rainbowActive = false;
-        mainButton.classList.remove("rainbowButton");
+    if (clickGearActive) {
+
+        clickGearTime--;
+
+        if (clickGearTime <= 0)
+            clickGearActive = false;
+
+    }
+
+    if (incomeActive) {
+
+        incomeTime--;
+
+        if (incomeTime <= 0)
+            incomeActive = false;
+
+    }
+
+    if (rainbowActive) {
+
+        rainbowTime--;
+
+        if (rainbowTime <= 0) {
+
+            rainbowActive = false;
+
+            mainButton.classList.remove(
+                "rainbowButton"
+            );
+
+        }
 
     }
 
     update();
 
 }, 1000);
+// ======================================
+// BUTTON PRESS v4.0
+// Part 6 - Save / Load / Update
+// ======================================
 
-// ===============================
-// THE END
-// ===============================
-
-buyEnd.onclick = () => {
-
-    if (clicks < endPrice || ends >= 1) return;
-
-    clicks -= endPrice;
-    ends++;
-
-    winScreen.style.display = "flex";
-
-    update();
-
-};
-
-continueButton.onclick = () => {
-
-    winScreen.style.display = "none";
-
-};
-
-// ===============================
-// SAVE
-// ===============================
+// ---------- SAVE ----------
 
 saveGame.onclick = () => {
 
-    const save = {
+    const data = {
 
         clicks,
         clickPower,
@@ -397,110 +828,273 @@ saveGame.onclick = () => {
         titanicPrice,
         cookiePrice,
         cinemaPrice,
-        endPrice
+
+        buttonClicks,
+        autoClicks,
+        itemsBought,
+        totalSpent,
+        highestCPS,
+        gearsUsed,
+        timesSaved,
+
+        tapesOwned,
+        dogOwned,
+
+        tapesCharges,
+        dogCharges,
+
+        gamblingDiscount,
+        gamblingActive,
+
+        stackFloating
 
     };
 
     localStorage.setItem(
         "buttonPressSave",
-        JSON.stringify(save)
+        JSON.stringify(data)
     );
 
-    alert("Game Saved!");
+    timesSaved++;
+
+    update();
+
+    alert("💾 Game Saved!");
 
 };
 
-// ===============================
-// LOAD
-// ===============================
+// ---------- LOAD ----------
 
-const save = JSON.parse(localStorage.getItem("buttonPressSave"));
+(function loadGame() {
 
-if (save) {
+    const save =
+        localStorage.getItem("buttonPressSave");
 
-    clicks = save.clicks ?? clicks;
-    clickPower = save.clickPower ?? clickPower;
+    if (!save) {
 
-    clickers = save.clickers ?? clickers;
-    hands = save.hands ?? hands;
-    moais = save.moais ?? moais;
-    prophecies = save.prophecies ?? prophecies;
-    titanics = save.titanics ?? titanics;
-    cookies = save.cookies ?? cookies;
-    cinemas = save.cinemas ?? cinemas;
-    ends = save.ends ?? ends;
+        update();
+        return;
 
-    clickerPrice = save.clickerPrice ?? clickerPrice;
-    handPrice = save.handPrice ?? handPrice;
-    moaiPrice = save.moaiPrice ?? moaiPrice;
-    prophecyPrice = save.prophecyPrice ?? prophecyPrice;
-    titanicPrice = save.titanicPrice ?? titanicPrice;
-    cookiePrice = save.cookiePrice ?? cookiePrice;
-    cinemaPrice = save.cinemaPrice ?? cinemaPrice;
-    endPrice = save.endPrice ?? endPrice;
+    }
 
-}
+    const data = JSON.parse(save);
 
-// ===============================
-// RESET
-// ===============================
+    Object.assign(window, data);
+
+    // Manual restore
+
+    clicks = data.clicks ?? 0;
+    clickPower = data.clickPower ?? 1;
+
+    clickers = data.clickers ?? 0;
+    hands = data.hands ?? 0;
+    moais = data.moais ?? 0;
+    prophecies = data.prophecies ?? 0;
+    titanics = data.titanics ?? 0;
+    cookies = data.cookies ?? 0;
+    cinemas = data.cinemas ?? 0;
+    ends = data.ends ?? 0;
+
+    clickerPrice = data.clickerPrice ?? 10;
+    handPrice = data.handPrice ?? 50;
+    moaiPrice = data.moaiPrice ?? 1000;
+    prophecyPrice = data.prophecyPrice ?? 10000;
+    titanicPrice = data.titanicPrice ?? 25000;
+    cookiePrice = data.cookiePrice ?? 100000;
+    cinemaPrice = data.cinemaPrice ?? 175000;
+
+    buttonClicks = data.buttonClicks ?? 0;
+    autoClicks = data.autoClicks ?? 0;
+    itemsBought = data.itemsBought ?? 0;
+    totalSpent = data.totalSpent ?? 0;
+    highestCPS = data.highestCPS ?? 0;
+    gearsUsed = data.gearsUsed ?? 0;
+    timesSaved = data.timesSaved ?? 0;
+
+    tapesOwned = data.tapesOwned ?? 0;
+    dogOwned = data.dogOwned ?? 0;
+
+    tapesCharges = data.tapesCharges ?? 0;
+    dogCharges = data.dogCharges ?? 0;
+
+    gamblingDiscount =
+        data.gamblingDiscount ?? 0;
+
+    gamblingActive =
+        data.gamblingActive ?? false;
+
+    stackFloating =
+        data.stackFloating ?? false;
+
+    if (stackFloatingClicks)
+        stackFloatingClicks.checked =
+            stackFloating;
+
+    update();
+
+})();
+
+// ---------- RESET ----------
 
 resetProgress.onclick = () => {
 
+    if (!confirm("Reset progress?"))
+        return;
+
     localStorage.removeItem("buttonPressSave");
+
     location.reload();
 
 };
 
 resetAll.onclick = () => {
 
+    if (!confirm("Delete EVERYTHING?"))
+        return;
+
     localStorage.clear();
+
     location.reload();
 
 };
 
-// ===============================
-// UPDATE
-// ===============================
+// ---------- UPDATE ----------
 
 function update() {
 
-    clicksText.textContent = Math.floor(clicks);
+    if (clicksText)
+        clicksText.textContent =
+            Math.floor(clicks);
 
-    clickersText.textContent = clickers;
-    handsText.textContent = hands;
-    moaisText.textContent = moais;
-    propheciesText.textContent = prophecies;
-    titanicsText.textContent = titanics;
-    cookiesText.textContent = cookies;
-    cinemasText.textContent = cinemas;
-    endsText.textContent = ends;
+    if (statClicks)
+        statClicks.textContent =
+            Math.floor(clicks);
 
-    clickerPriceText.textContent = clickerPrice;
-    handPriceText.textContent = handPrice;
-    moaiPriceText.textContent = moaiPrice;
-    prophecyPriceText.textContent = prophecyPrice;
-    titanicPriceText.textContent = titanicPrice;
-    cookiePriceText.textContent = cookiePrice;
-    cinemaPriceText.textContent = cinemaPrice;
-    endPriceText.textContent = endPrice;
+    if (buttonClicksText)
+        buttonClicksText.textContent =
+            buttonClicks;
 
-    speedStatus.textContent =
-        speedActive ? "⚡ " + speedTime + "s" : "Ready";
+    if (autoClicksText)
+        autoClicksText.textContent =
+            Math.floor(autoClicks);
 
-    clickStatus.textContent =
-        clickGearActive ? "💥 " + clickGearTime + "s" : "Ready";
+    if (itemsBoughtText)
+        itemsBoughtText.textContent =
+            itemsBought;
 
-    incomeStatus.textContent =
-        incomeActive ? "💰 " + incomeTime + "s" : "Ready";
+    if (totalSpentText)
+        totalSpentText.textContent =
+            Math.floor(totalSpent);
 
-    rainbowStatus.textContent =
-        rainbowActive ? "🌈 " + rainbowTime + "s" : "Ready";
+    if (highestCPSText)
+        highestCPSText.textContent =
+            Math.floor(highestCPS);
 
-    if (ends >= 1) {
-        buyEnd.disabled = true;
-        buyEnd.textContent = "MAXED";
+    if (gearsUsedText)
+        gearsUsedText.textContent =
+            gearsUsed;
+
+    if (timesSavedText)
+        timesSavedText.textContent =
+            timesSaved;
+
+    if (completedText)
+        completedText.textContent =
+            ends ? "YES" : "NO";
+
+    if (clickersText)
+        clickersText.textContent =
+            clickers;
+
+    if (handsText)
+        handsText.textContent =
+            hands;
+
+    if (moaisText)
+        moaisText.textContent =
+            moais;
+
+    if (propheciesText)
+        propheciesText.textContent =
+            prophecies;
+
+    if (titanicsText)
+        titanicsText.textContent =
+            titanics;
+
+    if (cookiesText)
+        cookiesText.textContent =
+            cookies;
+
+    if (cinemasText)
+        cinemasText.textContent =
+            cinemas;
+
+    if (endsText)
+        endsText.textContent =
+            ends;
+
+    // Prices
+
+    document.getElementById("clickerPrice").textContent = Math.floor(clickerPrice);
+    document.getElementById("handPrice").textContent = Math.floor(handPrice);
+    document.getElementById("moaiPrice").textContent = Math.floor(moaiPrice);
+    document.getElementById("prophecyPrice").textContent = Math.floor(prophecyPrice);
+    document.getElementById("titanicPrice").textContent = Math.floor(titanicPrice);
+    document.getElementById("cookiePrice").textContent = Math.floor(cookiePrice);
+    document.getElementById("cinemaPrice").textContent = Math.floor(cinemaPrice);
+
+    // Discount status
+
+    const gamble =
+        document.getElementById("gamblingStatus");
+
+    if (gamble) {
+
+        gamble.textContent =
+            gamblingActive
+            ? gamblingDiscount + "% OFF"
+            : "None";
+
     }
+
+    const tapes =
+        document.getElementById("tapesOwned");
+
+    if (tapes)
+        tapes.textContent = tapesOwned;
+
+    const dog =
+        document.getElementById("dogOwned");
+
+    if (dog)
+        dog.textContent = dogOwned;
+
+    // Gear status
+
+    if (document.getElementById("speedStatus"))
+        document.getElementById("speedStatus").textContent =
+            speedActive
+            ? speedTime + "s"
+            : "Ready";
+
+    if (document.getElementById("clickGearStatus"))
+        document.getElementById("clickGearStatus").textContent =
+            clickGearActive
+            ? clickGearTime + "s"
+            : "Ready";
+
+    if (document.getElementById("incomeStatus"))
+        document.getElementById("incomeStatus").textContent =
+            incomeActive
+            ? incomeTime + "s"
+            : "Ready";
+
+    if (document.getElementById("rainbowStatus"))
+        document.getElementById("rainbowStatus").textContent =
+            rainbowActive
+            ? rainbowTime + "s"
+            : "Ready";
 
 }
 

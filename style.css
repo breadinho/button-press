@@ -1,100 +1,82 @@
-body{
+/* ===========================
+   BUTTON PRESS v4.0
+   Part 1
+=========================== */
+
+*{
     margin:0;
-    padding:20px;
-    background:#111;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#1d1d1d;
     color:white;
-    font-family:Arial,sans-serif;
     text-align:center;
+    padding:20px;
 }
 
 h1{
-    font-size:45px;
+    margin-bottom:10px;
+    font-size:40px;
+}
+
+h2{
+    margin:15px 0;
 }
 
 .container{
     display:flex;
     justify-content:center;
     align-items:flex-start;
-    gap:30px;
+    gap:25px;
+    margin-top:20px;
 }
 
-.savePanel{
-    width:220px;
-    background:#1e1e1e;
-    padding:20px;
-    border-radius:15px;
-    display:flex;
-    flex-direction:column;
-    gap:15px;
+.leftColumn,
+.rightColumn{
+    width:320px;
 }
 
 .main{
-    width:600px;
+    width:420px;
 }
 
-.shop{
-    margin-top:30px;
-    background:#1e1e1e;
-    padding:20px;
-    border-radius:15px;
-}
+/* ===========================
+   BUTTON
+=========================== */
 
-.gearShop{
-    width:300px;
-    background:#1e1e1e;
-    padding:20px;
-    border-radius:15px;
-}
+#mainButton{
+    width:260px;
+    height:260px;
 
-.item{
-    background:#292929;
-    margin:15px 0;
-    padding:15px;
-    border-radius:12px;
-}
-
-button{
     border:none;
-    border-radius:10px;
-    padding:10px 20px;
-    font-size:16px;
+    border-radius:50%;
+
+    background:#4caf50;
+    color:white;
+
+    font-size:34px;
+    font-weight:bold;
+
     cursor:pointer;
+
     transition:.15s;
+    margin-bottom:25px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.35);
 }
 
-button:hover{
+#mainButton:hover{
     transform:scale(1.05);
 }
 
-#mainButton{
-    width:320px;
-    height:320px;
-    border-radius:50%;
-    font-size:45px;
-}
-
 #mainButton:active{
-    transform:scale(.92);
+    transform:scale(.94);
 }
 
-/* Save buttons */
-
-#saveGame{
-    background:#28a745;
-    color:white;
-}
-
-#resetProgress{
-    background:#ff9800;
-    color:white;
-}
-
-#resetAll{
-    background:#d32f2f;
-    color:white;
-}
-
-/* 🌈 Rainbow Mode */
+/* Rainbow Mode */
 
 .rainbowButton{
     background:linear-gradient(
@@ -105,15 +87,16 @@ button:hover{
         lime,
         cyan,
         blue,
-        purple,
+        violet,
         red
     );
-    background-size:400% 400%;
-    color:white;
-    animation:rainbow 2s linear infinite;
+
+    background-size:500% 500%;
+
+    animation:rainbowMove 2s linear infinite;
 }
 
-@keyframes rainbow{
+@keyframes rainbowMove{
 
     0%{
         background-position:0% 50%;
@@ -125,93 +108,447 @@ button:hover{
 
 }
 
-/* 💥 Explosion */
+/* ===========================
+   PANELS
+=========================== */
 
-.effect{
-    position:fixed;
-    font-size:50px;
-    pointer-events:none;
-    animation:explode .8s forwards;
+.savePanel,
+.discountShop,
+.shop,
+.statistics,
+.settings,
+.gearShop{
+
+    background:#2b2b2b;
+
+    border-radius:14px;
+
+    padding:18px;
+
+    margin-bottom:20px;
+
+    box-shadow:0 5px 14px rgba(0,0,0,.35);
+
 }
 
-@keyframes explode{
+/* Buttons */
+
+button{
+
+    width:100%;
+
+    padding:10px;
+
+    margin-top:8px;
+
+    border:none;
+
+    border-radius:8px;
+
+    background:#3f8cff;
+
+    color:white;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+button:hover{
+
+    filter:brightness(1.15);
+
+}
+
+button:active{
+
+    transform:scale(.97);
+
+}
+/* ===========================
+   SHOP ITEMS
+=========================== */
+
+.item{
+
+    background:#383838;
+
+    border-radius:12px;
+
+    padding:14px;
+
+    margin-top:15px;
+
+    transition:.2s;
+
+    border:2px solid transparent;
+
+}
+
+.item:hover{
+
+    border-color:#4ea5ff;
+
+    transform:translateY(-2px);
+
+}
+
+.item h3{
+
+    margin-bottom:8px;
+
+    font-size:22px;
+
+}
+
+.item p{
+
+    margin:6px 0;
+
+    font-size:15px;
+
+}
+
+/* ===========================
+   DISCOUNT SHOP
+=========================== */
+
+.discountShop h2{
+
+    color:#7dff6f;
+
+}
+
+.discountShop .item{
+
+    border-left:6px solid #52d652;
+
+}
+
+.discountShop button{
+
+    background:#43b047;
+
+}
+
+.discountShop button:hover{
+
+    background:#56c75b;
+
+}
+
+/* ===========================
+   NORMAL SHOP
+=========================== */
+
+.shop h2{
+
+    color:#ffd54a;
+
+}
+
+.shop .item{
+
+    border-left:6px solid gold;
+
+}
+
+/* ===========================
+   STATISTICS
+=========================== */
+
+.statistics{
+
+    text-align:left;
+
+}
+
+.statistics h2{
+
+    text-align:center;
+
+    color:#62d9ff;
+
+}
+
+.statistics p{
+
+    margin:10px 0;
+
+    font-size:16px;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+    padding-bottom:5px;
+
+}
+
+.statistics span{
+
+    float:right;
+
+    font-weight:bold;
+
+    color:#ffffff;
+
+}
+
+/* ===========================
+   SETTINGS
+=========================== */
+
+.settings h2{
+
+    color:#ffb84a;
+
+}
+
+.setting{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin-top:15px;
+
+    font-size:17px;
+
+    cursor:pointer;
+
+}
+
+.setting input{
+
+    width:20px;
+
+    height:20px;
+
+}
+
+/* ===========================
+   GEAR SHOP
+=========================== */
+
+.gearShop h2{
+
+    color:#ff8f8f;
+
+}
+
+.gearShop .item{
+
+    border-left:6px solid #ff5f5f;
+
+}
+
+.gearShop button{
+
+    background:#ff6868;
+
+}
+
+.gearShop button:hover{
+
+    background:#ff7c7c;
+
+}
+/* ===========================
+   FLOATING EFFECTS
+=========================== */
+
+.effect{
+
+    position:fixed;
+
+    pointer-events:none;
+
+    font-size:34px;
+
+    font-weight:bold;
+
+    transform:translate(-50%,-50%);
+
+    animation:effectPop .8s forwards;
+
+    z-index:9999;
+
+}
+
+.floatingClicks{
+
+    position:fixed;
+
+    pointer-events:none;
+
+    font-size:24px;
+
+    font-weight:bold;
+
+    color:#ffe066;
+
+    text-shadow:0 0 8px rgba(0,0,0,.5);
+
+    transform:translate(-50%,-50%);
+
+    animation:floatUp .9s forwards;
+
+    z-index:9998;
+
+}
+
+@keyframes effectPop{
 
     0%{
         opacity:1;
-        transform:scale(.5);
+        transform:translate(-50%,-50%) scale(.5);
     }
 
     100%{
         opacity:0;
-        transform:translateY(-100px) scale(1.5);
+        transform:translate(-50%,-170%) scale(2);
     }
 
 }
 
-/* 🥀 Ending */
+@keyframes floatUp{
+
+    0%{
+        opacity:1;
+        transform:translate(-50%,-50%);
+    }
+
+    100%{
+        opacity:0;
+        transform:translate(-50%,-140%);
+    }
+
+}
+
+/* ===========================
+   WIN SCREEN
+=========================== */
 
 .winScreen{
-    display:none;
+
     position:fixed;
+
     inset:0;
-    background:black;
-    z-index:999;
-    justify-content:center;
-    align-items:center;
-}
 
-.winBox{
-    width:100%;
-    height:100%;
-    display:flex;
+    background:rgba(20,20,20,.96);
+
+    display:none;
+
+    justify-content:center;
+
+    align-items:center;
+
     flex-direction:column;
-    justify-content:center;
-    align-items:center;
+
+    text-align:center;
+
+    z-index:10000;
+
+    padding:30px;
+
 }
 
-.winBox h1{
-    font-size:150px;
-    margin:0;
+.winScreen h1{
+
+    font-size:52px;
+
+    margin-bottom:20px;
+
+    color:#ffe45e;
+
 }
 
-.winBox h2{
-    font-size:48px;
-    margin:15px;
+.winScreen h2{
+
+    font-size:34px;
+
+    margin-bottom:15px;
+
 }
 
-.winBox button{
-    margin-top:35px;
-    font-size:30px;
-    padding:20px 60px;
+.winScreen p{
+
+    font-size:22px;
+
+    margin-bottom:30px;
+
 }
 
-/* Mobile */
+#continueButton{
 
-@media(max-width:900px){
+    width:280px;
+
+    font-size:22px;
+
+    padding:16px;
+
+    background:#45b649;
+
+}
+
+/* ===========================
+   MOBILE
+=========================== */
+
+@media (max-width:1100px){
 
     .container{
+
         flex-direction:column;
+
         align-items:center;
+
     }
 
-    .savePanel,
-    .main,
-    .gearShop{
-        width:90%;
+    .leftColumn,
+    .rightColumn,
+    .main{
+
+        width:95%;
+
+        max-width:500px;
+
     }
 
     #mainButton{
-        width:260px;
-        height:260px;
-        font-size:36px;
+
+        width:220px;
+        height:220px;
+        font-size:30px;
+
     }
 
-    .winBox h1{
-        font-size:100px;
-    }
+}
 
-    .winBox h2{
-        font-size:32px;
-    }
+/* ===========================
+   SCROLLBAR
+=========================== */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#666;
+
+    border-radius:8px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#888;
 
 }

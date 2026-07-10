@@ -4,55 +4,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BUTTON PRESS</title>
+    <title>BUTTON PRESS v4.0</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <h1>🔘 BUTTON PRESS</h1>
-<h2>Clicks: <span id="clicks">0</span></h2>
+
+<h2>
+    CLICKS:
+    <span id="clicks">0</span>
+</h2>
 
 <div id="effects"></div>
 
-<!-- WIN SCREEN -->
-
-<div id="winScreen" class="winScreen">
-    <div class="winBox">
-        <h1>🥀</h1>
-        <h2>You beat the BUTTON PRESS game!</h2>
-        <h2>Congratulations!</h2>
-        <button id="continueButton">PLAY MORE</button>
-    </div>
-</div>
-
 <div class="container">
 
-    <!-- LEFT PANEL -->
+    <!-- LEFT SIDE -->
 
-    <div class="savePanel">
+    <div class="leftColumn">
 
-        <h2>💾 DATA</h2>
+        <!-- SAVE -->
 
-        <button id="saveGame">💾 Save</button>
+        <div class="savePanel">
 
-        <button id="resetProgress">
-            🔄 Reset Progress
-        </button>
+            <h2>💾 DATA</h2>
 
-        <button id="resetAll">
-            💀 Reset ALL
-        </button>
+            <button id="saveGame">
+                💾 Save
+            </button>
+
+            <button id="resetProgress">
+                🔄 Reset Progress
+            </button>
+
+            <button id="resetAll">
+                💀 Reset ALL
+            </button>
+
+        </div>
+
+        <!-- DISCOUNT SHOP -->
+
+        <div class="discountShop">
+
+            <h2>💰 DISCOUNT OFFERS</h2>
+
+            <!-- TAPES -->
+
+            <div class="item">
+
+                <h3>📼 Tapes</h3>
+
+                <p>
+                    Next shop item:
+                    <b>-15%</b>
+                </p>
+
+                <p>
+                    Doesn't work on
+                    🥀 The End
+                </p>
+
+                <p>
+                    Cost:
+                    <span id="tapesPrice">7500</span>
+                </p>
+
+                <button id="buyTapes">
+                    Buy
+                </button>
+
+                <p>
+                    Owned:
+                    <span id="tapesOwned">0</span>
+                </p>
+
+            </div>
+
+            <!-- DISCOUNT DOG -->
+
+            <div class="item">
+
+                <h3>🐶 Discount Dog</h3>
+
+                <p>
+                    First
+                    <b>3</b>
+                    shop items:
+                    <b>-40%</b>
+                </p>
+
+                <p>
+                    Doesn't work on
+                    🥀 The End
+                </p>
+
+                <p>
+                    Cost:
+                    <span id="dogPrice">60000</span>
+                </p>
+
+                <button id="buyDog">
+                    Buy
+                </button>
+
+                <p>
+                    Owned:
+                    <span id="dogOwned">0</span>
+                </p>
+
+            </div>
+
+            <!-- GAMBLING -->
+
+            <div class="item">
+
+                <h3>🎲 GAMBLING</h3>
+
+                <p>
+                    Random discount:
+                    <b>15% - 100%</b>
+                </p>
+
+                <p>
+                    Doesn't work on
+                    🥀 The End
+                </p>
+
+                <p>
+                    Cost:
+                    <span id="gamblingPrice">25000</span>
+                </p>
+
+                <button id="buyGambling">
+                    Roll!
+                </button>
+
+                <p>
+                    Active:
+                    <span id="gamblingStatus">
+                        None
+                    </span>
+                </p>
+
+            </div>
+
+        </div>
 
     </div>
 
     <!-- CENTER -->
 
     <div class="main">
+<!-- MAIN BUTTON -->
 
         <button id="mainButton">
             CLICK
         </button>
+
+        <!-- SHOP -->
 
         <div class="shop">
 
@@ -105,7 +218,8 @@
                 <button id="buyCookie">Buy</button>
                 <p>Owned: <span id="cookies">0</span></p>
             </div>
-<div class="item">
+
+            <div class="item">
                 <h3>✋😐🤚 Absolute Cinema</h3>
                 <p>+1500 clicks per second</p>
                 <p>Cost: <span id="cinemaPrice">175000</span></p>
@@ -115,7 +229,7 @@
 
             <div class="item">
                 <h3>🥀 The End</h3>
-                <p>Beat the BUTTON PRESS game.</p>
+                <p>Beat BUTTON PRESS!</p>
                 <p>Cost: <span id="endPrice">100000000</span></p>
                 <button id="buyEnd">Finish Game</button>
                 <p>Owned: <span id="ends">0</span>/1</p>
@@ -123,47 +237,111 @@
 
         </div>
 
+        <!-- STATISTICS -->
+
+        <div class="statistics">
+
+            <h2>📊 STATISTICS</h2>
+
+            <p>💰 CLICKS: <span id="statClicks">0</span></p>
+
+            <p>👆 BUTTON CLICKS: <span id="buttonClicks">0</span></p>
+
+            <p>⚡ AUTO CLICKS: <span id="autoClicks">0</span></p>
+
+            <p>🛒 SHOP ITEMS BOUGHT: <span id="itemsBought">0</span></p>
+
+            <p>💸 TOTAL CLICKS SPENT: <span id="totalSpent">0</span></p>
+
+            <p>💾 TIMES SAVED: <span id="timesSaved">0</span></p>
+
+            <p>📈 HIGHEST CPS: <span id="highestCPS">0</span></p>
+
+            <p>⚙️ GEARS USED: <span id="gearsUsed">0</span></p>
+
+            <p>🥀 GAME COMPLETED:
+                <span id="gameCompleted">No</span>
+            </p>
+
+        </div>
+    </div>
+<!-- RIGHT SIDE -->
+
+    <div class="rightColumn">
+
+        <!-- SETTINGS -->
+
+        <div class="settings">
+
+            <h2>⚙️ SETTINGS</h2>
+
+            <label class="setting">
+                <input type="checkbox" id="stackFloatingClicks">
+                Stack earned clicks per click
+            </label>
+
+        </div>
+
+        <!-- GEARS -->
+
+        <div class="gearShop">
+
+            <h2>⚙️ GEARS</h2>
+
+            <div class="item">
+                <h3>⚡ x2 Speed</h3>
+                <p>Auto income ×2 for 15 seconds</p>
+                <p>Cost: 5000</p>
+                <button id="buySpeed">Buy</button>
+                <p>Status: <span id="speedStatus">Ready</span></p>
+            </div>
+
+            <div class="item">
+                <h3>💥 x2 Click</h3>
+                <p>Clicks ×2 for 15 seconds</p>
+                <p>Cost: 5000</p>
+                <button id="buyClickGear">Buy</button>
+                <p>Status: <span id="clickGearStatus">Ready</span></p>
+            </div>
+
+            <div class="item">
+                <h3>💰 x2 Money</h3>
+                <p>All income ×2 for 15 seconds</p>
+                <p>Cost: 10000</p>
+                <button id="buyIncome">Buy</button>
+                <p>Status: <span id="incomeStatus">Ready</span></p>
+            </div>
+
+            <div class="item">
+                <h3>🌈 x5 Money</h3>
+                <p>All income ×5 for 10 seconds</p>
+                <p>Cost: 50000</p>
+                <button id="buyRainbow">Buy</button>
+                <p>Status: <span id="rainbowStatus">Ready</span></p>
+            </div>
+
+        </div>
+
     </div>
 
-    <!-- RIGHT PANEL -->
+</div>
 
-    <div class="gearShop">
+<!-- WIN SCREEN -->
 
-        <h2>⚙️ GEARS</h2>
+<div id="winScreen" class="winScreen">
 
-        <div class="item">
-            <h3>⚡ x2 Speed</h3>
-            <p>Auto income ×2 for 15 seconds</p>
-            <p>Cost: <span id="speedPrice">5000</span></p>
-            <button id="buySpeed">Buy</button>
-            <p>Status: <span id="speedStatus">Ready</span></p>
-        </div>
+    <h1>🎉 YOU BEAT BUTTON PRESS! 🎉</h1>
 
-        <div class="item">
-            <h3>💥 x2 Click</h3>
-            <p>Click power ×2 for 15 seconds</p>
-            <p>Cost: <span id="clickGearPrice">5000</span></p>
-            <button id="buyClickGear">Buy</button>
-            <p>Status: <span id="clickGearStatus">Ready</span></p>
-        </div>
+    <h2>Congratulations!</h2>
 
-        <div class="item">
-            <h3>💰 x2 Income</h3>
-            <p>Everything ×2 for 15 seconds</p>
-            <p>Cost: <span id="incomePrice">10000</span></p>
-            <button id="buyIncome">Buy</button>
-            <p>Status: <span id="incomeStatus">Ready</span></p>
-        </div>
+    <p>
+        You reached <b>The End</b>...
+        but you can still keep playing!
+    </p>
 
-        <div class="item">
-            <h3>🌈 x5 Money Boost</h3>
-            <p>Everything ×5 for 10 seconds</p>
-            <p>Cost: <span id="rainbowPrice">50000</span></p>
-            <button id="buyRainbow">Buy</button>
-            <p>Status: <span id="rainbowStatus">Ready</span></p>
-        </div>
-
-    </div>
+    <button id="continueButton">
+        ▶ PLAY MORE
+    </button>
 
 </div>
 
